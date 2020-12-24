@@ -1,0 +1,29 @@
+server:
+  port: 8300 # 端口号
+  servlet:
+    session:
+      timeout: 60m # Session 超时时间 60 分钟
+
+spring:
+  application:
+    name: admin # 应用名称
+  profiles:
+    active: dev # 激活的配置文件
+  servlet:
+    multipart:
+      enabled: false # 禁止文件上传
+  boot:
+    admin:
+      discovery:
+        ignored-services: admin # 忽略Admin自己
+
+management: # 监控配置
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 暴露节点
+
+eureka: # 注册中心配置
+  instance:
+    prefer-ip-address: true # 使用ip
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port} # 实例ID

@@ -1,0 +1,161 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8 # tomcat uri编码
+  port: 8400 # 服务端口号
+
+spring:
+  application:
+    name: system # 应用名称
+  profiles:
+    active: dev # 激活的配置文件
+  main:
+    allow-bean-definition-overriding: true # 允许Bean重新定义
+  datasource:
+    driver-class-name: ${framework.database.driver-class-name} # 数据库驱动
+    type: com.alibaba.druid.pool.DruidDataSource # 数据源类型
+    url: ${framework.database.jdbc-url-type}:mysql://${framework.database.host}:${framework.database.port}/${framework.database.name}?autoReconnect=true&failOverReadOnly=false&useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8 # 数据库链接
+    username: ${framework.database.username} # 用户名
+    password: ${framework.database.password} # 密码
+    druid:
+      enable: true
+      async-init: true # 异步初始化连接
+      validation-query: SELECT 1 # 检查存活SQL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      time-between-eviction-runs-millis: -1 # 关闭线程
+      max-wait: 60000 # 60秒
+      web-stat-filter:
+        enabled: false # 关闭状态监控
+  mvc:
+    throw-exception-if-no-handler-found: true # 出现错误时直接抛出异常
+    date-format: yyyy-MM-dd HH:mm:ss # 日期格式
+  jackson:
+    default-property-inclusion: NON_EMPTY # Jackson序列化时总是包含所有字段
+    date-format: yyyy-MM-dd HH:mm:ss # 格式化日期
+    time-zone: GMT+8 # 时区
+    visibility: # 字段可见性
+      IS_GETTER: NONE
+      FIELD: ANY
+    locale: zh_CN # 本地化
+  servlet:
+    multipart:
+      enabled: true # 打开文件上传
+  messages:
+    encoding: UTF-8 # 消息文件编码
+  cache:
+    type: redis # 使用Redis缓存
+  banner:
+    charset: UTF-8 # Banner编码
+  quartz: # 定时任务配置
+    auto-startup: true # 自动启动
+    job-store-type: memory # 任务存储类型
+    scheduler-name: systemScheduler # 调度名称
+    wait-for-jobs-to-complete-on-shutdown: true # 任务调度完成后停止
+    properties:
+      org.quartz.scheduler.instanceName: systemScheduler
+      org.quartz.scheduler.instanceId: AUTO
+      org.quartz.scheduler.rmi.export: false # 关闭远程管理相关配置
+      org.quartz.scheduler.rmi.proxy: false # 关闭远程管理相关配置
+      org.quartz.scheduler.wrapJobExecutionInUserTransaction: false # 关闭远程管理相关配置
+      org.quartz.jobStore.isClustered: true # 开启集群
+      org.quartz.jobStore.clusterCheckinInterval: 3000 # 分布式节点有效性检查时间间隔，单位：毫秒,默认值是15000
+      org.quartz.jobStore.misfireThreshold: 6000 # 容许的最大作业延长时间 最大能忍受的触发超时时间
+      org.quartz.jobStore.tablePrefix: SYS_ # 数据库表前缀
+      org.quartz.threadPool.class: org.springframework.scheduling.quartz.SimpleThreadPoolTaskExecutor
+      org.quartz.threadPool.threadCount: 2 # 任务执行线程
+      org.quartz.threadPool.threadsInheritContextClassLoaderOfInitializingThread: true
+  cloud:
+    circuitbreaker:
+      hystrix:
+        enabled: false
+
+management: # 监控配置
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 暴露节点
+
+eureka: # 注册中心配置
+  instance:
+    prefer-ip-address: true # 使用ip
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port} # 实例ID
+
+feign:
+  okhttp:
+    enabled: false # 禁用OkHttp
+  httpclient:
+    enabled: true # 启用httpClient
+    connection-timeout: 10000
+    connection-timer-repeat: 6000
+  client:
+    config:
+      default: # 默认配置
+        connectTimeout: 10000 # 连接超时 单位毫秒
+        readTimeout: 30000 # 读取超时 单位毫秒
+  compression: # 开启压缩
+    response:
+      useGzipDecoder: true
+      enabled: true
+    request:
+      enabled: true
+  hystrix:
+    enabled: true
+
+hystrix:
+  shareSecurityContext: true # 在Feign调用失败时执行fallback方法，在新的线程中共享安全上下文信息
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 160000
+
+ribbon:
+  ReadTimeout: 30000 # 读取超时时间
+  ConnectTimeout: 10000 # 连接超时时间
+  SocketTimeout: 30000 # 通讯超时时间
+  MaxTotalConnections: 1000 # 最大连接数
+  MaxConnectionsPerHost: 200 # 每个注解最多多少个连接
+  OkToRetryOnAllOperations: false # 对所有请求都进行重试
+  MaxAutoRetries: 1 # 对当前实例的重试3次
+  MaxAutoRetriesNextServer: 1 # 切换实例的重试次数
+  eager-load:
+    enabled: true # 开启Feign Client启动加载
+  eureka:
+    enabled: true # 开始Eureka
+  okhttp:
+    enabled: true # 使用OkHttp
+
+security: # 安全相关配置
+  oauth2:
+    resource:
+      jwt:
+        key-value: "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC4Thl3w0ylgmKDFaEOrsH+x5TXtSbGT0LMofXDExjGCFzfkbtXaV1jPWJwpeFMh2+12Q/h49HC+mN/RpqR20m1UKqOMpFs3720OU8+WMcCIshdy3mPpbwOGNoOmr9UhFivg1TqCjUJdeicC6vIaBeoQQeiV4gd6KD/ie2q3rw6lQIDAQAB\n-----END PUBLIC KEY-----"
+    client:
+      client-id: system # Client ID
+      client-secret: 123456 # Client Secret
+
+mybatis-plus:
+  mapper-locations: classpath*:/mappers/**/*.xml # MapperXML文件位置
+  # type-handlers-package: com.zxrj.framework.pojo.type.handler # 类型转换器包配置
+  check-config-location: false # 不检查MyBatis XML 文件的存在
+  executor-type: reuse # 该执行器类型会复用预处理语句（PreparedStatement）
+  configuration: # 原生 MyBatis 配置
+    map-underscore-to-camel-case: true # 自动驼峰命名规则
+    auto-mapping-behavior: partial # 只对非嵌套的 resultMap 进行自动映射
+    auto-mapping-unknown-column-behavior: warning # 以日志的形式打印相关警告信息
+    local-cache-scope: session # 开启一级缓存
+    cache-enabled: true # 开启二级缓存
+    call-setters-on-nulls: false # null 是否调用set方法设置
+    default-enum-type-handler: com.markyang.framework.config.mybatis.FrameworkEntityEnumHandler # 默认枚举处理器
+  global-config: # 全局配置
+    banner: true # 控制台打印logo
+    db-config:
+      id-type: assign_id # 默认主键自增模式
+      table-underline: true # 表名使用下划线命名
+      capital-mode: false # 不开启大写命名
+      insert-strategy: not_empty
+      update-strategy: not_empty
+      select-strategy: not_empty

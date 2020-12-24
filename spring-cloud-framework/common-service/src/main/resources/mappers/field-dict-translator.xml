@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.markyang.framework.service.common.repository.FieldDictTranslatorRepository">
+    <select id="getAllFieldDict" resultType="com.markyang.framework.pojo.dto.system.DictDto">
+        select sfd.field_name  as field,
+               sfd.field_value as value,
+               sfd.field_mean  as name
+        from sys_field_dict sfd
+        where sfd.app_id = #{appId}
+            and sfd.table_name = #{tableName}
+        <if test="filterDisplay">
+            and sfd.display_status = 'a'
+        </if>
+    </select>
+    <select id="getFieldDict" resultType="com.markyang.framework.pojo.dto.system.DictDto">
+        select sfd.field_name  as field,
+               sfd.field_value as value,
+               sfd.field_mean  as name
+        from sys_field_dict sfd
+        where sfd.app_id = #{appId}
+            and sfd.table_name = #{tableName}
+            and sfd.field_name = #{fieldName}
+        <if test="filterDisplay">
+            and sfd.display_status = 'a'
+        </if>
+    </select>
+</mapper>

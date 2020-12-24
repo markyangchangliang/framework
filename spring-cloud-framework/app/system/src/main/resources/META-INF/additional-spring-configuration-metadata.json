@@ -1,0 +1,69 @@
+{
+  "properties": [
+    {
+      "name": "ribbon.ReadTimeout",
+      "type": "java.lang.String",
+      "description": "读取超时时间."
+    },
+    {
+      "name": "ribbon.ConnectTimeout",
+      "type": "java.lang.String",
+      "description": "连接超时时间."
+    },
+    {
+      "name": "framework.database.host",
+      "type": "java.lang.String",
+      "description": "数据库主机名."
+    },
+    {
+      "name": "framework.database.port",
+      "type": "java.lang.String",
+      "description": "数据库端口号."
+    },
+    {
+      "name": "framework.database.name",
+      "type": "java.lang.String",
+      "description": "数据库名称."
+    },
+    {
+      "name": "framework.database.username",
+      "type": "java.lang.String",
+      "description": "用户名."
+    },
+    {
+      "name": "framework.database.password",
+      "type": "java.lang.String",
+      "description": "密码."
+    },
+    {
+      "name": "framework.field-dict-translator-enabled",
+      "type": "java.lang.String",
+      "description": "是否开启数据字典解析钩子."
+    },
+    {
+      "name": "framework.common-info-cache-enabled",
+      "type": "java.lang.String",
+      "description": "是否开启公用数据缓存."
+    },
+    {
+      "name": "wechat.miniapp.configs",
+      "type": "java.lang.String",
+      "description": "Description for wechat.miniapp.configs."
+    },
+    {
+      "name": "framework.database.driver-class-name",
+      "type": "java.lang.String",
+      "description": "数据库驱动."
+    },
+    {
+      "name": "framework.database.jdbc-url-type",
+      "type": "java.lang.String",
+      "description": "JDBC url类型."
+    },
+    {
+      "name": "spring.cloud.circuit.breaker.enabled",
+      "type": "java.lang.String",
+      "description": "Description for spring.cloud.circuit.breaker.enabled."
+    }
+  ]
+}

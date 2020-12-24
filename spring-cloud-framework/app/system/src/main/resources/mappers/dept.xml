@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.markyang.framework.app.system.repository.DeptRepository">
+    <!--查询科室信息-->
+    <select id="getDepts" resultType="com.markyang.framework.pojo.dto.system.DictDto">
+        select id value,
+               name name
+        from sys_dept
+        where org_id = #{orgId}
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(type)"> and type = #{type} </if>
+    </select>
+
+</mapper>

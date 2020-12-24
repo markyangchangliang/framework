@@ -1,0 +1,9 @@
+eureka:
+  client:
+    register-with-eureka: false # 不要将自己注册到eureka
+    fetch-registry: false # 不到eureka获取注册信息
+    service-url:
+      defaultZone: http://localhost:8000/eureka/ # 注册地址
+  server:
+    enable-self-preservation: true # 关闭自我保护
+    eviction-interval-timer-in-ms: 120000 # 剔除失效服务间隔，默认60000

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.markyang.framework.app.system.repository.WorkerRepository">
+    <select id="getWorkerByPhone" resultType="com.markyang.framework.pojo.entity.system.Worker">
+        select w.id,
+               w.name,
+               w.pinyin,
+               w.gender,
+               w.certificate_no,
+               w.birthday,
+               w.native_place,
+               w.work_date,
+               w.entry_date,
+               w.engage_date,
+               w.first_degree,
+               w.first_graduate_school,
+               w.first_graduate_date,
+               w.highest_degree,
+               w.highest_graduate_school,
+               w.highest_graduate_date,
+               w.worker_category,
+               w.post_category,
+               w.politics,
+               w.tel_phone,
+               w.mobile_phone,
+               w.address,
+               w.post_code,
+               w.email,
+               w.wx,
+               w.qq,
+               w.status,
+               w.position_grade,
+               w.online,
+               w.recommend,
+               w.org_user_id,
+               w.wx_cp_user_id,
+               d.id      dept_id,
+               d.name    dept_name,
+               dw.id     dept_workerid,
+               dw.status stop_status,
+               o.id      org_id,
+               o.name    org_name
+        from sys_worker w,
+             sys_dept_worker dw,
+             sys_dept d,
+             sys_org o
+        where w.id = dw.worker_id
+          and dw.dept_id = d.id
+          and o.id = d.org_id
+          and w.mobile_phone = #{phone}
+        order by dw.status desc
+        limit 0,1
+    </select>
+
+    <select id="getWorkerById" resultType="com.markyang.framework.pojo.entity.system.Worker">
+        select w.id,
+               w.type,
+               w.nation,
+               w.name,
+               w.pinyin,
+               w.gender,
+               w.certificate_no,
+               w.birthday,
+               w.native_place,
+               w.work_date,
+               w.entry_date,
+               w.engage_date,
+               w.first_degree,
+               w.first_graduate_school,
+               w.first_graduate_date,
+               w.highest_degree,
+               w.highest_graduate_school,
+               w.highest_graduate_date,
+               w.worker_category,
+               w.post_category,
+               w.politics,
+               w.certificate_address,
+               w.tel_phone,
+               w.mobile_phone,
+               w.address,
+               w.post_code,
+               w.email,
+               w.positional,
+               w.post,
+               w.intro,
+               w.wx,
+               w.qq,
+               w.status,
+               w.online,
+               w.pic,
+               w.recommend,
+               w.auth_status,
+               w.auth_date,
+               w.qualified_status,
+               w.qualified_date,
+               w.org_user_id,
+               w.org_user_pwd,
+               w.wx_cp_user_id,
+               w.position_grade,
+               d.id      dept_id,
+               d.name    dept_name,
+               d.org_dept_id,
+               d.qywx_dept_id,
+               d.his_dept_id,
+               w.wx_cp_user_id,
+               dw.id     dept_workerid,
+               dw.status stop_status,
+               o.id      org_id,
+               o.name    org_name,
+               o.his_id  org_his_id
+        from sys_worker w,
+             sys_dept_worker dw,
+             sys_dept d,
+             sys_org o
+        where w.id = dw.worker_id
+          and dw.dept_id = d.id
+          and o.id = d.org_id
+          and dw.status = 'a'
+          and w.id = #{id}
+    </select>
+
+    <select id="getDeptWorkerTreeData" resultType="com.markyang.framework.pojo.dto.system.DeptWorkerTreeDto">
+        select id,
+               parent_id,
+               name,
+               'dept'     type,
+               qywx_order seq
+        from sys_dept
+        where org_id = #{orgId}
+        union
+        select a.id,
+               c.id as  parent_id,
+               a.name,
+               'worker' type,
+               0 seq
+        from sys_worker a,
+             sys_dept_worker b,
+             sys_dept c,
+             sys_org d
+        where a.id = b.worker_id
+          and b.status = 'a'
+          and b.dept_id = c.id
+          and c.org_id = d.id
+          and d.id = #{orgId}
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(type)"> and a.type = #{type} </if>
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(positional)"> and a.positional = #{positional} </if>
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(post)"> and a.post = #{post} </if>
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(positionGrade)"> and a.position_grade = #{positionGrade} </if>
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(online)"> and a.online = #{online} </if>
+        order by cast(ifnull(seq, 0) as signed integer), convert(name using gbk)
+    </select>
+
+    <select id="getWorkersByDeptParentId" resultType="com.markyang.framework.pojo.entity.system.Worker">
+        select w.id,
+            w.name,
+            w.type,
+            w.nation,
+            w.pinyin,
+            w.gender,
+            w.certificate_no,
+            w.birthday,
+            w.politics,
+            w.tel_phone,
+            w.mobile_phone,
+            w.address,
+            w.post_code,
+            w.email,
+            w.wx,
+            w.qq,
+            w.status,
+            w.online,
+            w.pic,
+            w.intro,
+            w.recommend,
+            w.org_user_id,
+            w.wx_cp_user_id,
+            w.position_grade,
+            d.id   dept_id,
+            d.name dept_name
+        from sys_worker w,
+            sys_dept_worker dw,
+            sys_dept d,
+            sys_user u
+        where w.id = dw.worker_id
+            and dw.dept_id = d.id
+            and w.id = u.worker_id
+            and d.org_id = #{orgId}
+        <if test="@org.apache.commons.collections4.CollectionUtils@isNotEmpty(deptIds)">and d.id in
+            <foreach collection="deptIds" close=")" open="(" separator="," index="index" item="deptId">
+                #{deptId}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="getOrgDeptWorkers" resultType="com.markyang.framework.pojo.entity.system.Worker">
+        select w.*, d.name as dept_name
+        from sys_worker w
+                 inner join sys_dept_worker dw on dw.worker_id = w.id and dw.status = 'a'
+                 inner join sys_dept d on d.id = dw.dept_id
+        where d.id = #{deptId}
+    </select>
+
+    <!--查询推荐专家-->
+    <select id="getOnlineWorkers" resultType="com.markyang.framework.pojo.dto.system.WorkerInfoDto">
+        select w.id,
+               w.name,
+               w.gender,
+               w.positional,
+               wdf.fee diagnose_fee,
+               w.pic,
+               d.id    dept_id,
+               d.name  dept_name,
+               o.id    org_id,
+               o.name  org_name,
+               d.his_dept_id,
+               w.org_user_id his_worker_id
+        from sys_worker w,
+             sys_dept_worker dw,
+             sys_dept d,
+             sys_org o,
+             sys_worker_diagnose_fee wdf
+        where w.id = dw.worker_id
+          and dw.dept_id = d.id
+          and d.org_id = o.id
+          and dw.status = 'a'
+          and w.online = 'b'
+          and o.id = wdf.org_id
+          and w.positional = wdf.positional
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(orgId)"> and o.id = #{orgId} </if>
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(deptId)"> and d.id = #{deptId} </if>
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(deptType)"> and d.dept_type = #{deptType} </if>
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(positional)"> and w.positional = #{positional} </if>
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(workerName)"> and w.name rlike #{workerName} </if>
+    </select>
+
+    <!--查询推荐专家-->
+    <select id="getOnlineWorkerInfo" resultType="com.markyang.framework.pojo.dto.system.WorkerInfoDto">
+        select w.id,
+               w.name,
+               w.gender,
+               w.positional,
+               wdf.fee diagnose_fee,
+               w.intro,
+               w.pic,
+               d.id    dept_id,
+               d.name  dept_name,
+               o.id    org_id,
+               o.name  org_name,
+               d.his_dept_id,
+               w.org_user_id his_worker_id
+        from sys_worker w,
+             sys_dept_worker dw,
+             sys_dept d,
+             sys_org o,
+             sys_worker_diagnose_fee wdf
+        where w.id = dw.worker_id
+          and dw.dept_id = d.id
+          and d.org_id = o.id
+          and dw.status = 'a'
+          and w.online = 'b'
+          and o.id = wdf.org_id
+          and w.positional = wdf.positional
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(workerId)"> and w.id = #{workerId} </if>
+    </select>
+
+</mapper>

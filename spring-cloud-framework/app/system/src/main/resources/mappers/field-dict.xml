@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.markyang.framework.app.system.repository.FieldDictRepository">
+
+    <!--查看所有的表名-->
+    <select id="getAllTables" resultType="com.markyang.framework.pojo.common.support.ItemEntry">
+        select t.table_name `key`, if(ifnull(t.table_comment, '') = '', t.table_name, t.table_comment) value
+          from information_schema.tables t
+         where t.table_schema = (select sa.db_name from sys_app sa where sa.id = #{appId})
+         order by t.table_name
+    </select>
+
+    <!--查看所有的字段名-->
+    <select id="getAllTableFields" resultType="com.markyang.framework.pojo.common.support.ItemEntry">
+        select t.column_name `key`, if(ifnull(t.column_comment, '') = '', t.column_name, t.column_comment) value
+        from information_schema.COLUMNS t
+        where t.table_schema = (select sa.db_name from sys_app sa where sa.id = #{appId})
+          and t.table_name = #{tableName}
+          and t.column_name not in ('id', 'created_by', 'created_datetime', 'last_modified_by', 'last_modified_datetime')
+        order by t.column_name
+    </select>
+
+</mapper>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.markyang.framework.app.system.repository.DatabaseRepository">
+    <!--数据库表信息-->
+    <select id="getTableColumnInfo" resultType="com.markyang.framework.pojo.dto.system.ColumnInfoDto">
+        select ''            column0,
+               'drop table ' column1,
+               'if exists '  column2,
+               ';'           column3,
+               ''            column4,
+               ''            column5,
+               '1'           is_combine,
+               -2            seq
+        union
+        select ''              column0,
+               'create table ' column1,
+               table_name      column2,
+               '('             column3,
+               ''              column4,
+               ''              column5,
+               '1'             is_combine,
+               -1              seq
+        from information_schema.tables
+        where table_schema = #{databaseName}
+          and table_name = #{tableName}
+        union
+        select column_comment                                   column0,
+               column_name                                      column1,
+               data_type                                        column2,
+               case when is_nullable = 'NO' then 'not null' end column3,
+               'comment'                                        column4,
+               concat('''', column_comment, '''')               column5,
+               '0'                                              is_combine,
+               ordinal_position                                 seq
+        from information_schema.columns
+        where table_schema = #{databaseName}
+          and table_name = #{tableName}
+        union
+        select 'pk'                                       column0,
+               concat('primary key (', column_name, '))') column1,
+               ''                                         column2,
+               ''                                         column3,
+               ''                                         column4,
+               ''                                         column5,
+               '1'                                        is_combine,
+               10000                                      seq
+        from information_schema.columns
+        where table_schema = #{databaseName}
+          and table_name = #{tableName}
+          and column_key = 'PRI'
+        union
+        select 'engine'                                                         column0,
+               concat('engine = ', engine, ' default charset = ', table_collation) column1,
+               ''                                                               column2,
+               ''                                                               column3,
+               ''                                                               column4,
+               ''                                                               column5,
+               '1'                                                              is_combine,
+               10001                                                            seq
+        from information_schema.tables
+        where table_schema = #{databaseName}
+          and table_name = #{tableName}
+        union
+        select 'comment'                                      column0,
+               concat('comment = ', '''', table_comment, '''') column1,
+               ''                                             column2,
+               ''                                             column3,
+               ''                                             column4,
+               ''                                             column5,
+               '1'                                            is_combine,
+               10002                                          seq
+        from information_schema.tables
+        where table_schema = #{databaseName}
+          and table_name = #{tableName}
+        union
+        select 'index'                                                       column0,
+               concat('create ', IF(non_unique = 0, 'unique ', ''), 'index ', index_name, 'on ', table_name, '(',
+                      group_concat(column_name order by seq_in_index), ');') column1,
+               ''                                                            column2,
+               ''                                                            column3,
+               ''                                                            column4,
+               ''                                                            column5,
+               '1'                                                           is_combine,
+               10003                                                         seq
+        from information_schema.statistics
+        where table_schema = #{databaseName}
+          and table_name = #{tableName}
+        group by non_unique, index_name, table_name
+        order by seq
+    </select>
+    <select id="getDatabaseTableInfos" resultType="com.markyang.framework.pojo.dto.system.TableInfoDto">
+        select table_schema as database_name, table_name, table_comment
+        from information_schema.tables
+        where table_schema not in (
+            'sys',
+            'mysql',
+            'information_schema',
+            'performance_schema'
+        )
+        order by database_name, table_name
+    </select>
+</mapper>

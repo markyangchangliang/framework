@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>社区账号登录注册</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .avatar {
+            width: 120px;
+        }
+        .container {
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div th:unless="${bind}" class="alert alert-warning mt-lg-5" role="alert">
+            请使用社区账号登录！
+        </div>
+        <div th:if="${bind}">
+            <img th:src="${imageUrl}" th:alt="${displayName}" class="img-fluid rounded-lg avatar d-block m-auto mt-lg-5" />
+            <h4 class="pt-lg-3 pb-lg-4 text-center"><b>[[${providerId == "qq" ? "QQ" : providerId == "wx" ? "微信" : providerId}]]</b>账号[[${displayName}]]绑定</h4>
+            <form onsubmit="return false">
+                <div class="form-group row">
+                    <label for="username" class="col-sm-2 col-form-label">账号</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="username" id="username">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col-sm-2 col-form-label">密码</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" name="password" id="password">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div class="alert alert-info" role="alert">
+                            <h5 class="alert-heading">温馨提示</h5>
+                            <p class="mb-0">所绑定账号必须是系统中已经存在的，如果系统中不存在此账号，请联系管理员添加账号后，再进行绑定操作！！！</p>
+                        </div>
+                        <button id="submit" type="submit" class="btn btn-primary btn-lg btn-block mt-lg-3">绑定账号</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal fade" id="message-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">处理结果</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="message-content" class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    <button id="confirm" type="button" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $('#submit').click(function() {
+            // 提交代码
+            $.post('/social-register/do', {
+                username: '111',
+                password: '222'
+            }, function(resp) {
+                $('#message-modal').modal('show');
+                $('#message-content').text(resp.message);
+            }, 'json');
+        });
+        $('#confirm').click(function () {
+            $('#message-modal').modal('hide');
+        });
+    </script>
+</body>
+</html>

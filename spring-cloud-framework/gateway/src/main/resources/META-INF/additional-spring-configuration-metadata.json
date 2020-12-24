@@ -1,0 +1,39 @@
+{
+  "properties": [
+    {
+      "name": "ribbon.ReadTimeout",
+      "type": "java.lang.String",
+      "description": "读取超时时间."
+    },
+    {
+      "name": "ribbon.ConnectTimeout",
+      "type": "java.lang.String",
+      "description": "连接超时时间."
+    },
+    {
+      "name": "framework.database.host",
+      "type": "java.lang.String",
+      "description": "数据库主机名."
+    },
+    {
+      "name": "framework.database.port",
+      "type": "java.lang.String",
+      "description": "数据库端口号."
+    },
+    {
+      "name": "framework.database.name",
+      "type": "java.lang.String",
+      "description": "数据库名称."
+    },
+    {
+      "name": "framework.database.username",
+      "type": "java.lang.String",
+      "description": "用户名."
+    },
+    {
+      "name": "framework.database.password",
+      "type": "java.lang.String",
+      "description": "密码."
+    }
+  ]
+}

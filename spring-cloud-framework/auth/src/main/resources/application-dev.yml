@@ -1,0 +1,57 @@
+spring:
+  datasource:
+    druid:
+      max-open-prepared-statements: 4 # 最大预处理语句
+      max-active: 2 # 最大连接数量
+      initial-size: 2 # 初始连接数量
+      min-idle: 2 # 最小空闲数量
+  redis:
+    database: 1 # 数据库序号
+    host: 127.0.0.1 # 连接主机
+    port: 6379 # 端口号
+    password: # Redis密码
+  cloud:
+    circuit:
+      breaker:
+        enabled: false # 关闭熔断
+
+eureka: # 注册中心配置
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka/ # 注册地址
+    healthcheck:
+      enabled: true
+    registry-fetch-interval-seconds: 60 # 5秒拉取信息
+  instance:
+    lease-renewal-interval-in-seconds: 2 # Eureka客户端向服务端发送心跳的时间间隔，单位为秒（客户端告诉服务端自己会按照该规则），默认30
+    lease-expiration-duration-in-seconds: 180 # Eureka服务端在收到最后一次心跳之后等待的时间上限，单位为秒，超过则剔除（客户端告诉服务端按照此规则等待自己），默认90
+
+feign:
+  hystrix:
+    enabled: false # 关闭熔断
+
+framework: # 自定义配置
+  database: # 数据库配置
+    host: localhost # 数据库主机
+    port: 3306 # 数据库端口
+    name: spring-cloud-framework-new # 数据库名称
+    username: root # 用户名
+    password: 199294 # 密码
+  auth:
+    login-processing-url: /login # 登录处理的URL
+    sms-login-processing-url: /login/sms # 短信登录处理的URL
+    wx-mini-app-code-login-processing-url: /login/wxMiniAppCode # 微信小程序登录处理URL
+    permitted-urls: [ # 允许通行的URL列表
+      "/login", # 登录地址
+      "/favicon.ico", # 网站小图标
+      "/social-register/**", # 三方登录绑定信息页面地址
+    ]
+    social:
+      processing-url: /social # 三方登录处理URL
+      sign-up-url: /social-register # 三方登录绑定账号URL
+      qq: # QQ三方登录信息
+        app-id: 101522289
+        app-secret: b20ae3cf72ba799f3fe68253d192a23a
+      wx: # 微信三方登录信息
+        app-id: wxd99431bbff8305a0
+        app-secret: 60f78681d063590a469f1b297feff3c4

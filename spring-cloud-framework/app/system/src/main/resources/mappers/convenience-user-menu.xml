@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.markyang.framework.app.system.repository.ConvenienceUserMenuRepository">
+    <select id="getConvenienceUserMenus" resultType="com.markyang.framework.pojo.dto.system.ConvenienceUserMenuDto">
+        SELECT c.id, c.menu_id, m.title, m.uri, c.seq
+        FROM sys_convenience_user_menu c
+                 INNER JOIN sys_menu m
+                            ON m.id = c.menu_id
+        WHERE c.user_id = #{userId}
+        ORDER BY c.seq
+    </select>
+</mapper>

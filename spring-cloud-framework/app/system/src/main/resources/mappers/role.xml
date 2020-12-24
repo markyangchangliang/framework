@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.markyang.framework.app.system.repository.RoleRepository">
+
+    <select id="getUsersByRole" resultType="com.markyang.framework.pojo.dto.system.RoleUserDto">
+        select u.id, ur.role_id, w.name, d.name as dept_name
+        from sys_user_role ur
+                 left join sys_user u on ur.user_id = u.id
+                 left join sys_worker w on u.worker_id = w.id
+                 left join sys_dept_worker dw on w.id = dw.worker_id
+                 left join sys_dept d on d.id = dw.dept_id
+        where ur.role_id = #{roleId}
+          and dw.status = 'a'
+        order by convert(w.name using gbk)
+    </select>
+
+    <select id="getUserRoles" resultType="com.markyang.framework.pojo.dto.system.RoleDto">
+        select r.id role_id, r.name role_name
+        from sys_role r
+                 inner join sys_user_role ur on r.id = ur.role_id
+        where ur.user_id = #{userId}
+    </select>
+
+    <select id="getAppUserRoles" resultType="com.markyang.framework.pojo.dto.system.RoleDto">
+        select r.id role_id, r.name role_name
+        from sys_role r,
+             sys_user_role ur,
+             sys_app a
+        where a.id = r.app_id
+          and r.id = ur.role_id
+          and r.status = 'a'
+          and a.id = #{appId}
+          and ur.user_id = #{userId}
+    </select>
+
+    <select id="getAppRoles" resultType="com.markyang.framework.pojo.dto.system.RoleDto">
+        select r.id role_id,
+               r.name role_name
+        from sys_role r,
+             sys_app a
+        where a.id = r.app_id
+          and r.status = 'a'
+          and a.id = #{appId}
+    </select>
+</mapper>

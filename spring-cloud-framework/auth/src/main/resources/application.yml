@@ -1,0 +1,113 @@
+server:
+  port: 8200 # 端口号
+  servlet:
+    session:
+      timeout: 60m # Session 超时时间 60 分钟
+encrypt:
+  key-store:
+    location: classpath:/config-service.jks
+    alias: mytestkey
+    password: letmein
+    secret: changeme
+spring:
+  application:
+    name: auth # 应用名称
+  profiles:
+    active: dev # 激活的配置文件
+  main:
+    allow-bean-definition-overriding: true # 允许Bean重新定义
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver # 数据库驱动
+    type: com.alibaba.druid.pool.DruidDataSource # 数据源类型
+    url: jdbc:mysql://${framework.database.host}:${framework.database.port}/${framework.database.name}?autoReconnect=true&failOverReadOnly=false&useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8 # 数据库链接
+    username: ${framework.database.username} # 用户名
+    password: ${framework.database.password} # 密码
+    druid:
+      enable: true
+      async-init: true # 异步初始化连接
+      validation-query: SELECT 1 # 检查存活SQL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      time-between-eviction-runs-millis: -1 # 关闭线程
+      max-wait: 60000 # 60秒
+      web-stat-filter:
+        enabled: false # 关闭状态监控
+  mvc:
+    throw-exception-if-no-handler-found: true # 出现错误时直接抛出异常
+    date-format: yyyy-MM-dd HH:mm:ss # 日期格式
+  resources:
+    add-mappings: false # 不要为资源文件建立映射
+  jackson:
+    default-property-inclusion: NON_EMPTY # Jackson序列化时总是包含所有字段
+    date-format: yyyy-MM-dd HH:mm:ss # 格式化日期
+    time-zone: GMT+8 # 时区
+    visibility: # 字段可见性
+      IS_GETTER: NONE
+      FIELD: ANY
+    locale: zh_CN # 本地化
+  servlet:
+    multipart:
+      enabled: false # 禁止文件上传
+  cloud:
+    circuitbreaker:
+      hystrix:
+        enabled: false
+
+management: # 监控配置
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 暴露节点
+
+eureka: # 注册中心配置
+  instance:
+    prefer-ip-address: true # 使用ip
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port} # 实例ID
+
+feign:
+  okhttp:
+    enabled: false # 禁用OkHttp
+  httpclient:
+    enabled: true # 启用httpClient
+    connection-timeout: 10000
+    connection-timer-repeat: 6000
+  client:
+    config:
+      default: # 默认配置
+        connectTimeout: 10000 # 连接超时 单位毫秒
+        readTimeout: 30000 # 读取超时 单位毫秒
+  compression: # 开启压缩
+    response:
+      useGzipDecoder: true
+      enabled: true
+    request:
+      enabled: true
+  hystrix:
+    enabled: true
+
+hystrix:
+  shareSecurityContext: true # 在Feign调用失败时执行fallback方法，在新的线程中共享安全上下文信息
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 160000
+
+ribbon:
+  ReadTimeout: 30000 # 读取超时时间
+  ConnectTimeout: 10000 # 连接超时时间
+  SocketTimeout: 30000 # 通讯超时时间
+  MaxTotalConnections: 1000 # 最大连接数
+  MaxConnectionsPerHost: 200 # 每个注解最多多少个连接
+  OkToRetryOnAllOperations: false # 对所有请求都进行重试
+  MaxAutoRetries: 1 # 对当前实例的重试3次
+  MaxAutoRetriesNextServer: 1 # 切换实例的重试次数
+  eager-load:
+    enabled: true # 开启Feign Client启动加载
+  eureka:
+    enabled: true # 开始Eureka
+  okhttp:
+    enabled: true # 使用OkHttp

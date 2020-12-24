@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.markyang.framework.service.common.repository.CommonInfoCacheRepository">
+    <select id="getOrgInfo" resultType="com.markyang.framework.pojo.dto.system.OrgInfoDto">
+        select so.id,
+               so.name,
+               so.type,
+               so.code,
+               so.his_id,
+               so.secret,
+               so.his_worker,
+               so.exchange_url,
+               so.exchange_secret,
+               so.config,
+               so.logo
+        from sys_org so
+    </select>
+    <select id="getDeptInfo" resultType="com.markyang.framework.pojo.dto.system.DeptInfoDto">
+        select sd.id,
+               sd.name
+        from sys_dept sd
+    </select>
+    <select id="getUserWorkerInfo" resultType="com.markyang.framework.pojo.dto.system.UserWorkerInfoDto">
+        select su.id,
+               sw.id as worker_id,
+               sd.org_id,
+               sw.name,
+               sw.pic
+        from sys_user su
+                 inner join sys_worker sw on su.worker_id = sw.id
+                 inner join sys_dept_worker sdw on sdw.worker_id = sw.id and sdw.status = 'a'
+                 inner join sys_dept sd on sd.id = sdw.dept_id
+    </select>
+    <select id="getWorkerInfo" resultType="com.markyang.framework.pojo.dto.system.UserWorkerInfoDto">
+        select sw.id as worker_id,
+               sd.org_id,
+               sw.name,
+               sw.pic
+        from sys_worker sw
+                 inner join sys_dept_worker sdw on sdw.worker_id = sw.id and sdw.status = 'a'
+                 inner join sys_dept sd on sd.id = sdw.dept_id
+    </select>
+    <select id="getUserWorker" resultType="com.markyang.framework.pojo.dto.system.UserWorkerInfoDto">
+        select su.id,
+               sw.id as worker_id,
+               sd.org_id,
+               sw.name,
+               sw.pic
+        from sys_user su
+                 inner join sys_worker sw on su.worker_id = sw.id
+                 inner join sys_dept_worker sdw on sdw.worker_id = sw.id and sdw.status = 'a'
+                 inner join sys_dept sd on sd.id = sdw.dept_id
+        where su.id = #{userId}
+    </select>
+    <select id="getWorker" resultType="com.markyang.framework.pojo.dto.system.UserWorkerInfoDto">
+        select sw.id as worker_id,
+               sd.org_id,
+               sw.name,
+               sw.pic
+        from sys_worker sw
+                 inner join sys_dept_worker sdw on sdw.worker_id = sw.id and sdw.status = 'a'
+                 inner join sys_dept sd on sd.id = sdw.dept_id
+        where sw.id = #{workerId}
+    </select>
+</mapper>

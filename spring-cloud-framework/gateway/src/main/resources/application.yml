@@ -1,0 +1,117 @@
+server:
+  port: 8100 # 端口号
+
+spring:
+  application:
+    name: gateway # 应用名称
+  profiles:
+    active: dev # 激活的配置文件
+  main:
+    allow-bean-definition-overriding: true # 允许Bean重新定义
+  mvc:
+    throw-exception-if-no-handler-found: true # 出现错误时直接抛出异常
+    date-format: yyyy-MM-dd HH:mm:ss # 日期格式
+    static-path-pattern: /** # 静态资源映射路径
+  resources:
+    add-mappings: true # 为资源文件建立映射
+    static-locations: file:${framework.upload.fs.path} # 静态资源位置
+  jackson:
+    default-property-inclusion: NON_EMPTY # Jackson序列化时总是包含所有字段
+    date-format: yyyy-MM-dd HH:mm:ss # 格式化日期
+    time-zone: GMT+8 # 时区
+    visibility: # 字段可见性
+      IS_GETTER: NONE
+      FIELD: ANY
+    locale: zh_CN # 本地化
+  cloud:
+    circuitbreaker:
+      hystrix:
+        enabled: false
+
+management: # 监控配置
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 暴露节点
+
+eureka: # 注册中心配置
+  instance:
+    prefer-ip-address: true # 使用ip
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port} # 实例ID
+
+feign:
+  okhttp:
+    enabled: false # 禁用OkHttp
+  httpclient:
+    enabled: true # 启用httpClient
+    connection-timeout: 10000
+    connection-timer-repeat: 6000
+  client:
+    config:
+      default: # 默认配置
+        connectTimeout: 10000 # 连接超时 单位毫秒
+        readTimeout: 30000 # 读取超时 单位毫秒
+  compression: # 开启压缩
+    response:
+      useGzipDecoder: true
+      enabled: true
+    request:
+      enabled: true
+  hystrix:
+    enabled: true
+
+hystrix:
+  shareSecurityContext: true # 在Feign调用失败时执行fallback方法，在新的线程中共享安全上下文信息
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 160000
+
+ribbon:
+  ReadTimeout: 30000 # 读取超时时间
+  ConnectTimeout: 10000 # 连接超时时间
+  SocketTimeout: 30000 # 通讯超时时间
+  MaxTotalConnections: 1000 # 最大连接数
+  MaxConnectionsPerHost: 200 # 每个注解最多多少个连接
+  OkToRetryOnAllOperations: false # 对所有请求都进行重试
+  MaxAutoRetries: 1 # 对当前实例的重试3次
+  MaxAutoRetriesNextServer: 1 # 切换实例的重试次数
+  eager-load:
+    enabled: true # 开启Feign Client启动加载
+  eureka:
+    enabled: true # 开始Eureka
+  okhttp:
+    enabled: true # 使用OkHttp
+
+# zuul 网关配置
+zuul:
+  strip-prefix: true # 转发请求时去掉应用名称前缀
+  prefix: # 请求前缀配置
+  routes:
+    system: # 系统服务
+      path: /system/**
+      serviceId: system
+
+    auth: # 认证授权服务
+      path: /auth/**
+      serviceId: auth
+
+  ratelimit: # 限流策略
+    repository: redis # 限流信息存储至Redis中
+  sensitive-headers: Authentication,Cookie # 让网关转发Authentication头信息
+  host:
+    socket-timeout-millis: 30000
+    connect-timeout-millis: 30000
+    max-total-connections: 1000
+    max-per-route-connections: 200
+
+security: # 安全相关配置
+  oauth2:
+    resource:
+      jwt:
+        key-value: "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC4Thl3w0ylgmKDFaEOrsH+x5TXtSbGT0LMofXDExjGCFzfkbtXaV1jPWJwpeFMh2+12Q/h49HC+mN/RpqR20m1UKqOMpFs3720OU8+WMcCIshdy3mPpbwOGNoOmr9UhFivg1TqCjUJdeicC6vIaBeoQQeiV4gd6KD/ie2q3rw6lQIDAQAB\n-----END PUBLIC KEY-----"
+    client:
+      client-id: gateway # Client ID
+      client-secret: 123456 # Client Secret
