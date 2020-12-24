@@ -4,7 +4,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 公共配置
+ * 公共配置信息
  *
  * @author yangchangliang
  * @version 1
