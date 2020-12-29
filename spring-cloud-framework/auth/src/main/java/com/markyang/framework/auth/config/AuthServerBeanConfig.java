@@ -9,8 +9,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 /**
- * 认证服务bean配置
- * @author yangchangliang
+ * 密钥解析配置
+ * @author markyang
  */
 @Configuration
 public class AuthServerBeanConfig {
@@ -22,8 +22,8 @@ public class AuthServerBeanConfig {
         DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
         accessTokenConverter.setUserTokenConverter(authenticatedAuthenticationConverter);
         converter.setAccessTokenConverter(accessTokenConverter);
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("keys/jwt.key"), "markyang@123".toCharArray());
-        converter.setKeyPair(keyStoreKeyFactory.getKeyPair("config-service"));
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("keys/jwt.key"), "zxrj@123".toCharArray());
+        converter.setKeyPair(keyStoreKeyFactory.getKeyPair("jwt"));
         return converter;
     }
 

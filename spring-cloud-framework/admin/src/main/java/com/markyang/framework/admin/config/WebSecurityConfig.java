@@ -2,10 +2,12 @@ package com.markyang.framework.admin.config;
 
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
 import lombok.AllArgsConstructor;
+import org.bouncycastle.util.IPAddress;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import sun.net.util.IPAddressUtil;
 
 import java.util.UUID;
 
@@ -46,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(this.adminServerProperties.path("/login"), this.adminServerProperties.path("/assets/**"))
             .permitAll()
             .antMatchers("/actuator/**")
-            .hasIpAddress("192.168.1.6")
+            .hasIpAddress("192.168.0.102")
             .anyRequest()
             .authenticated();
     }

@@ -5,8 +5,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * feign配置
- * @author yangchangliang
+ * feign client扫描配置
+ * @author markyang
  */
 @Configuration
 @EnableFeignClients(basePackages = {

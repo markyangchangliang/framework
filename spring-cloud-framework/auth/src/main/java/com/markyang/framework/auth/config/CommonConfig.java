@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /**
- * 通用配置加载
- * @author yangchangliang
+ * 通用配置
+ * @author markyang
  */
 @Configuration
 @ComponentScan(basePackages = {

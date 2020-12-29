@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
- * @author yangchangliang
+ * @author markyang
  */
 @SpringBootApplication(exclude = {
     QuartzAutoConfiguration.class,

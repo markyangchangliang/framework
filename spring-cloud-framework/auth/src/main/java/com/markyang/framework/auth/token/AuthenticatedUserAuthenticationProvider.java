@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 
 /**
- * 用户认证
- * @author yangchangliang
+ * 自定义的用户身份验证提供
+ * @author markyang
  */
 @Component
 @Slf4j

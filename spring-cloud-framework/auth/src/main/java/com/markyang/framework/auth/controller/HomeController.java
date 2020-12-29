@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 根路径控制器
- * @author yangchangliang
+ * @author markyang
  */
 @Controller
 @RequestMapping("/")

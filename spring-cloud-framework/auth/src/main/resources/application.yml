@@ -3,12 +3,7 @@ server:
   servlet:
     session:
       timeout: 60m # Session 超时时间 60 分钟
-encrypt:
-  key-store:
-    location: classpath:/config-service.jks
-    alias: mytestkey
-    password: letmein
-    secret: changeme
+
 spring:
   application:
     name: auth # 应用名称

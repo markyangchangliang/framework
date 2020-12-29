@@ -5,8 +5,9 @@ import org.springframework.security.core.AuthenticationException;
 /**
  * 用户找不到异常
  *
- * @author yangchangliang
+ * @author markyang
  * @version 1
+ * @date 2020/3/30 11:08 下午 星期一
  */
 public class UserNotFoundException extends AuthenticationException {
     /**

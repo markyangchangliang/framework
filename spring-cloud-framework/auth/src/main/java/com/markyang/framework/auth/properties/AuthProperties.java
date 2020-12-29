@@ -4,7 +4,8 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * @author yangchangliang
+ * 认证属性
+ * @author markyang
  */
 @ConfigurationProperties(prefix = "framework.auth")
 @Data

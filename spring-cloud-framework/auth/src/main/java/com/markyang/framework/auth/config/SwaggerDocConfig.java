@@ -18,8 +18,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * Swagger文档配置
  *
- * @author yangchangliang
+ * @author markyang
  * @version 1
+ * @date 2020/3/25 3:39 下午 星期三
  */
 @EnableKnife4j
 @EnableSwagger2
@@ -43,7 +44,7 @@ public class SwaggerDocConfig {
             .title("认证服务Api文档")
             .description("<div style='font-size:14px;color:red;'>认证授权相关的Api文档</div>")
             .termsOfServiceUrl("http://www.markyang.com/")
-            .contact(new Contact("yangchangliang", "http://www.markyang.com", "markyangt088@163.com"))
+            .contact(new Contact("markyang", "http://www.markyang088.com", "markyang088@163.com"))
             .version("1.0")
             .build();
     }

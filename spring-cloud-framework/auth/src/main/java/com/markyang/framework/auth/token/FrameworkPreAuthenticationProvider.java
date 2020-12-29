@@ -1,6 +1,5 @@
 package com.markyang.framework.auth.token;
 
-import com.markyang.framework.pojo.token.AuthenticatedPatientAuthenticationToken;
 import com.markyang.framework.pojo.token.AuthenticatedUserAuthenticationToken;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,10 +9,11 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
 /**
- * 自定义实现PreAuthentication 预认证
+ * 自定义实现PreAuthentication认证
  *
- * @author yangchangliang
+ * @author markyang
  * @version 1
+ * @date 2020/4/14 10:45 上午 星期二
  */
 @Order(-1)
 public class FrameworkPreAuthenticationProvider implements AuthenticationProvider {
@@ -40,13 +40,6 @@ public class FrameworkPreAuthenticationProvider implements AuthenticationProvide
 
             return result;
         }
-        if (principal instanceof AuthenticatedPatientAuthenticationToken) {
-            AuthenticatedPatientAuthenticationToken token = (AuthenticatedPatientAuthenticationToken) principal;
-            PreAuthenticatedAuthenticationToken result = new PreAuthenticatedAuthenticationToken(token.getPrincipal(), "N/A", authentication.getAuthorities());
-            result.setDetails(authentication.getDetails());
-
-            return result;
-        }
         return null;
     }
 
@@ -66,7 +59,7 @@ public class FrameworkPreAuthenticationProvider implements AuthenticationProvide
      * authentication is conducted at runtime the <code>ProviderManager</code>.
      * </p>
      *
-     * @param authentication
+     * @param authentication 身份验证
      * @return <code>true</code> if the implementation can more closely evaluate the
      * <code>Authentication</code> class presented
      */

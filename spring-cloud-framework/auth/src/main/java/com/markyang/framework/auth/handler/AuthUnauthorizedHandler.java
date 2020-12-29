@@ -18,7 +18,7 @@ import java.io.IOException;
 
 /**
  * 自定义认证入口
- * @author yangchangliang
+ * @author markyang
  */
 @Primary
 @Component

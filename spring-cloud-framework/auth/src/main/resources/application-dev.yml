@@ -44,14 +44,4 @@ framework: # 自定义配置
     permitted-urls: [ # 允许通行的URL列表
       "/login", # 登录地址
       "/favicon.ico", # 网站小图标
-      "/social-register/**", # 三方登录绑定信息页面地址
     ]
-    social:
-      processing-url: /social # 三方登录处理URL
-      sign-up-url: /social-register # 三方登录绑定账号URL
-      qq: # QQ三方登录信息
-        app-id: 101522289
-        app-secret: b20ae3cf72ba799f3fe68253d192a23a
-      wx: # 微信三方登录信息
-        app-id: wxd99431bbff8305a0
-        app-secret: 60f78681d063590a469f1b297feff3c4

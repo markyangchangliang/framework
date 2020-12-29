@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
- * 框架层面用户详情服务类
- * @author yangchangliang
+ * 用户信息
+ * @author markyang
  */
 public interface FrameworkUserDetailsService extends UserDetailsService {
 

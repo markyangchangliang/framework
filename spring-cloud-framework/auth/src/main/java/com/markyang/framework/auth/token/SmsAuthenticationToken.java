@@ -8,12 +8,18 @@ import java.util.Collection;
 
 /**
  * 验证码登录Token
- * @author yangchangliang
+ * @author markyang
  */
 public class SmsAuthenticationToken extends AbstractAuthenticationToken {
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
+    // ~ Instance fields
+    // ================================================================================================
+
     private final Object principal;
+
+    // ~ Constructors
+    // ===================================================================================================
 
     /**
      * This constructor can be safely used by any code that wishes to create a
@@ -40,8 +46,12 @@ public class SmsAuthenticationToken extends AbstractAuthenticationToken {
                                   Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
+        // must use super, as we override
         super.setAuthenticated(true);
     }
+
+    // ~ Methods
+    // ========================================================================================================
 
     @Override
     public Object getCredentials() {

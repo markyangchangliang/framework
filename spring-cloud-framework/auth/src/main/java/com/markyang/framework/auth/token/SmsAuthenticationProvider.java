@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 /**
- * 短信认证
- * @author yangchangliang
+ * 自定义短信认证提供
+ * @author markyang
  */
 @Component
 @Slf4j

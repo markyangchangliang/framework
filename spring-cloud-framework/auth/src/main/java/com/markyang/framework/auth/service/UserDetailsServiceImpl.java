@@ -15,8 +15,8 @@ import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Service;
 
 /**
- * 框架层面用户详情服务实现
- * @author yangchangliang
+ * 用户信息实现类
+ * @author markyang
  */
 @Service("authUserDetailsServiceImpl")
 @Primary

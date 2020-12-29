@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 通用服务配置
- * @author yangchangliang
+ * @author markyang
  */
 @Configuration
 @ComponentScan(basePackages = "com.markyang.framework.service.auth")

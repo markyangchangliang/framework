@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.markyang.framework.auth.handler.AuthTokenAuthoritiesCacheEnhancer;
 import com.markyang.framework.auth.token.FrameworkPreAuthenticationProvider;
 import com.markyang.framework.auth.token.SmsTokenGranter;
+import com.markyang.framework.auth.token.WxMiniAppTokenGranter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -34,7 +35,7 @@ import javax.sql.DataSource;
 
 /**
  * 认证服务配置
- * @author yangchangliang
+ * @author markyang
  */
 @Configuration
 @AllArgsConstructor
@@ -65,7 +66,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         DefaultTokenServices tokenServices = new DefaultTokenServices();
         tokenServices.setAuthenticationManager(new ProviderManager(Lists.newArrayList(new FrameworkPreAuthenticationProvider())));
         tokenServices.setClientDetailsService(this.clientDetailsService);
@@ -93,7 +94,9 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
         CompositeTokenGranter tokenGranter = new CompositeTokenGranter(Lists.newArrayList(
             endpoints.getTokenGranter(),
             // 短信登录Granter
-            new SmsTokenGranter(this.authenticationManager, tokenServices, this.clientDetailsService, requestFactory)
+            new SmsTokenGranter(this.authenticationManager, tokenServices, this.clientDetailsService, requestFactory),
+            // 微信小程序Code登录Granter
+            new WxMiniAppTokenGranter(this.authenticationManager, tokenServices, this.clientDetailsService, requestFactory)
         ));
         endpoints.tokenGranter(tokenGranter);
         // 异常处理

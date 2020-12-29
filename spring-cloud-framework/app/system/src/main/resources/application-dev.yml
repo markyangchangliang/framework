@@ -17,7 +17,7 @@ spring:
     static-locations: file:${framework.upload.fs.path} # 静态资源位置
   rabbitmq:
     host: localhost
-    port: 41906
+    port: 5672
     username: guest
     password: guest
   cloud:

@@ -9,10 +9,6 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 
 import java.util.Map;
 
-/**
- * 短信token生成
- * @author yangchangliang
- */
 public class SmsTokenGranter extends AbstractFrameworkTokenGranter {
     private static final String GRANT_TYPE = "sms";
 

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 短信认证过滤器
- * @author yangchangliang
+ * @author markyang
  */
 public class SmsAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
     // ~ Static fields/initializers
@@ -21,7 +21,6 @@ public class SmsAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
     public static final String SPRING_SECURITY_FORM_PHONE_KEY = "phone";
 
-    private String phoneParameter = SPRING_SECURITY_FORM_PHONE_KEY;
     private boolean postOnly = true;
 
     // ~ Constructors
@@ -69,7 +68,7 @@ public class SmsAuthenticationFilter extends AbstractAuthenticationProcessingFil
      */
     @Nullable
     protected String obtainPhone(HttpServletRequest request) {
-        return request.getParameter(this.phoneParameter);
+        return request.getParameter(SPRING_SECURITY_FORM_PHONE_KEY);
     }
 
     /**

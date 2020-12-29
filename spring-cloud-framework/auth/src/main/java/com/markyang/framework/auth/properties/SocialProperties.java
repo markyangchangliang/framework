@@ -1,11 +1,11 @@
 package com.markyang.framework.auth.properties;
 
-import com.markyang.framework.auth.social.core.SocialAppProperties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * @author yangchangliang
+ * 社区属性
+ * @author markyang
  */
 @Data
 @ConfigurationProperties(prefix = "framework.auth.social")
@@ -21,13 +21,4 @@ public class SocialProperties {
      */
     private String signUpUrl;
 
-    /**
-     * QQ社区互联
-     */
-    private SocialAppProperties qq;
-
-    /**
-     * 微信社区互联
-     */
-    private SocialAppProperties wx;
 }

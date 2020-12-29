@@ -31,16 +31,6 @@ public class AccessDecisionService {
     private static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
 
     /**
-     * 患者权限校验 直接通过
-     * @param authenticatedPatient 认证患者对象
-     * @param request 请求对象
-     * @return bool
-     */
-    public boolean decide(AuthenticatedPatient authenticatedPatient, HttpServletRequest request) {
-        return true;
-    }
-
-    /**
      * 用户权限校验
      * @param authenticatedUser 认证用户
      * @param request 请求对象

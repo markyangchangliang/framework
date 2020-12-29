@@ -24,8 +24,8 @@ import org.springframework.social.security.SpringSocialConfigurer;
 import java.util.List;
 
 /**
- * web安全配置
- * @author yangchangliang
+ * web安全拦截配置
+ * @author markyang
  */
 @Configuration
 @EnableWebSecurity
@@ -36,7 +36,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
     private final AuthSecurityConfig authSecurityConfig;
-    private final SpringSocialConfigurer springSocialConfigurer;
     private final AuthProperties authProperties;
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AuthAuthenticationFailureHandler authAuthenticationFailureHandler;
@@ -56,8 +55,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.apply(this.authSecurityConfig)
-            .and()
-            .apply(this.springSocialConfigurer)
             .and()
             .formLogin()
             .loginPage("/login")

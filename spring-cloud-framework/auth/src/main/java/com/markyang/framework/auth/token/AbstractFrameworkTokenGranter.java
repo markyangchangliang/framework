@@ -14,8 +14,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * 抽象框架令牌生成
- * @author yangchangliang
+ * 框架层面token生成
+ * @author markyang
  */
 public abstract class AbstractFrameworkTokenGranter extends AbstractTokenGranter {
     private final AuthenticationManager authenticationManager;
@@ -46,8 +46,8 @@ public abstract class AbstractFrameworkTokenGranter extends AbstractTokenGranter
             throw new InvalidGrantException("Could not authenticate user for: " + userAuth);
         }
 
-        OAuth2Request storedOAuth2Request = getRequestFactory().createOAuth2Request(client, tokenRequest);
-        return new OAuth2Authentication(storedOAuth2Request, userAuth);
+        OAuth2Request oAuth2Request = getRequestFactory().createOAuth2Request(client, tokenRequest);
+        return new OAuth2Authentication(oAuth2Request, userAuth);
     }
 
     public abstract Authentication extractAuthentication(Map<String, String> parameters);

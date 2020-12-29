@@ -3,8 +3,7 @@ package com.markyang.framework.auth.exception;
 import org.springframework.security.core.AuthenticationException;
 
 /**
- * 找不到电话异常
- * @author yangchangliang
+ * @author markyang
  */
 public class PhoneNotFoundException extends AuthenticationException {
     // ~ Constructors

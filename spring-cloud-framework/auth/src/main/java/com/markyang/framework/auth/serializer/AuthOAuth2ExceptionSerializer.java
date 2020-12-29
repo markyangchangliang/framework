@@ -10,8 +10,9 @@ import java.io.IOException;
 /**
  * OAuth2异常序列化
  *
- * @author yangchangliang
+ * @author markyang
  * @version 1
+ * @date 2020/3/25 1:16 上午 星期三
  */
 public class AuthOAuth2ExceptionSerializer extends StdSerializer<AuthOAuth2Exception> {
 

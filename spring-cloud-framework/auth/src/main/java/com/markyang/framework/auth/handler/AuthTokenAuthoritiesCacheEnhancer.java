@@ -23,8 +23,9 @@ import java.util.stream.Collectors;
 /**
  * 设置权限存储过期的Token加强器
  *
- * @author yangchangliang
+ * @author markyang
  * @version 1
+ * @date 2020/4/1 11:22 上午 星期三
  */
 @Component
 public class AuthTokenAuthoritiesCacheEnhancer implements TokenEnhancer {

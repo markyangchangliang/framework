@@ -2,7 +2,6 @@ package com.markyang.framework.config.auth;
 
 import com.markyang.framework.pojo.auth.AuthenticatedPatient;
 import com.markyang.framework.pojo.auth.AuthenticatedUser;
-import com.markyang.framework.pojo.token.AuthenticatedPatientAuthenticationToken;
 import com.markyang.framework.pojo.token.AuthenticatedUserAuthenticationToken;
 import com.markyang.framework.util.TypeCastUtils;
 import lombok.AllArgsConstructor;
@@ -27,6 +26,11 @@ import java.util.Map;
 public class AuthenticatedAuthenticationConverter extends DefaultUserAuthenticationConverter implements InitializingBean {
 
     private final UserDetailsService userDetailsService;
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        this.setUserDetailsService(this.userDetailsService);
+    }
 
     /**
      * Extract information about the user to be used in an access token (i.e. for resource servers).
@@ -89,20 +93,6 @@ public class AuthenticatedAuthenticationConverter extends DefaultUserAuthenticat
                 .build();
             return new AuthenticatedUserAuthenticationToken(authenticatedUser, Collections.emptyList());
         }
-        // 用户信息转换
-        AuthenticatedPatient authenticatedPatient = AuthenticatedPatient.builder()
-            .userId(TypeCastUtils.cast(map.get("userId")))
-            .wxOpenId(TypeCastUtils.cast(map.get("wxOpenId")))
-            .wxSessionKey(TypeCastUtils.cast(map.get("wxSessionKey")))
-            .wxUnionId(TypeCastUtils.cast(map.get("wxUnionId")))
-            .aliOpenId(TypeCastUtils.cast(map.get("aliOpenId")))
-            .aliUnionId(TypeCastUtils.cast(map.get("aliUnionId")))
-            .build();
-        return new AuthenticatedPatientAuthenticationToken(authenticatedPatient, Collections.emptyList());
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        this.setUserDetailsService(this.userDetailsService);
+        return null;
     }
 }
