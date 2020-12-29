@@ -1,6 +1,5 @@
 package com.markyang.framework.gateway.service;
 
-import com.markyang.framework.pojo.auth.AuthenticatedPatient;
 import com.markyang.framework.pojo.auth.AuthenticatedUser;
 import com.markyang.framework.pojo.auth.AuthorityUriKey;
 import com.markyang.framework.pojo.constant.FrameworkConstants;

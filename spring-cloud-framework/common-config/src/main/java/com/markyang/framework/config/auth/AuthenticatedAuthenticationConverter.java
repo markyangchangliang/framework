@@ -1,6 +1,5 @@
 package com.markyang.framework.config.auth;
 
-import com.markyang.framework.pojo.auth.AuthenticatedPatient;
 import com.markyang.framework.pojo.auth.AuthenticatedUser;
 import com.markyang.framework.pojo.token.AuthenticatedUserAuthenticationToken;
 import com.markyang.framework.util.TypeCastUtils;
@@ -52,18 +51,6 @@ public class AuthenticatedAuthenticationConverter extends DefaultUserAuthenticat
             response.put("name", authenticatedUser.getName());
             response.put("mobilePhone", authenticatedUser.getMobilePhone());
             response.put("username", authenticatedUser.getUsername());
-            return response;
-        }
-        if (principal instanceof AuthenticatedPatient) {
-            Map<String, Object> response = new LinkedHashMap<String, Object>();
-            // 存储用户相关的信息
-            AuthenticatedPatient authenticatedPatient = (AuthenticatedPatient) principal;
-            response.put("userId", authenticatedPatient.getUserId());
-            response.put("wxOpenId", authenticatedPatient.getWxOpenId());
-            response.put("wxSessionKey", authenticatedPatient.getWxSessionKey());
-            response.put("wxUnionId", authenticatedPatient.getWxUnionId());
-            response.put("aliOpenId", authenticatedPatient.getAliOpenId());
-            response.put("aliUnionId", authenticatedPatient.getAliUnionId());
             return response;
         }
         return super.convertUserAuthentication(userAuthentication);

@@ -1,6 +1,5 @@
 package com.markyang.framework.util;
 
-import com.markyang.framework.pojo.auth.AuthenticatedPatient;
 import com.markyang.framework.pojo.auth.AuthenticatedUser;
 import com.markyang.framework.pojo.constant.FrameworkConstants;
 import com.markyang.framework.util.exception.AuthUtilException;
@@ -34,29 +33,6 @@ public final class AuthUtils {
         return null;
     }
 
-    /**
-     * 获取登录的患者
-     * @param throwExceptionIfNonExist 当登录的患者信息不存在时，是否抛出异常
-     * @return 登录患者信息
-     */
-    public static AuthenticatedPatient getLoggedPatient(boolean throwExceptionIfNonExist) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && authentication.getPrincipal() instanceof AuthenticatedPatient) {
-            return (AuthenticatedPatient) authentication.getPrincipal();
-        }
-        if (throwExceptionIfNonExist) {
-            throw new AuthUtilException("当前请求并无已认证的患者，考虑是否该请求没有做认证拦截？");
-        }
-        return null;
-    }
-
-    /**
-     * 获取登录的患者
-     * @return 登录患者信息
-     */
-    public static AuthenticatedPatient getLoggedPatient() {
-        return getLoggedPatient(true);
-    }
 
     /**
      * 获取登录用户
@@ -76,53 +52,12 @@ public final class AuthUtils {
     }
 
     /**
-     * 判断当前环境是否患者登录
-     * @return bool
-     */
-    public static boolean isPatientLogged() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.isAuthenticated() && authentication.getPrincipal() instanceof AuthenticatedPatient;
-    }
-
-    /**
      * 判断当前环境是否是认证过的
      * @return bool
      */
     public static boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.isAuthenticated();
-    }
-
-    /**
-     * 获取登录患者的患者ID
-     * @return 患者ID
-     */
-    public static String getLoggedPatientId() {
-        return getLoggedPatient().getUserId();
-    }
-
-    /**
-     * 获取登录患者的姓名
-     * @return 患者姓名
-     */
-    public static String getLoggedPatientName() {
-        return getLoggedPatient().getName();
-    }
-
-    /**
-     * 获取登录患者的SessionKey
-     * @return SessionKey
-     */
-    public static String getLoggedPatientSessionKey() {
-        return getLoggedPatient().getWxSessionKey();
-    }
-
-    /**
-     * 获取登录患者的OpenId
-     * @return OpenId
-     */
-    public static String getLoggedPatientWxOpenId() {
-        return getLoggedPatient().getWxOpenId();
     }
 
     /**
