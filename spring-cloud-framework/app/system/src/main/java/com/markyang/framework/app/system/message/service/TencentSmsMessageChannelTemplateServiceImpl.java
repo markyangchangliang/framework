@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.PropertyPlaceholderHelper;
 
@@ -107,7 +108,7 @@ public class TencentSmsMessageChannelTemplateServiceImpl implements MessageChann
             private int index = 1;
 
             @Override
-            public String resolvePlaceholder(String s) {
+            public String resolvePlaceholder(@NotNull String s) {
                 messageTemplateParameterDetails.add(MessageTemplateParameterDetails.builder()
                         .parameterId(String.valueOf(index++)).parameterName(s).parameterDesc(s).build());
                 return null;

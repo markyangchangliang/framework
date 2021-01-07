@@ -33,7 +33,7 @@ public class CacheEvictionAop {
 
     private final FrameworkExpressionEvaluator expressionEvaluator;
 
-    @Pointcut("execution(* com.zxrj.framework.app..*.*(..)) " +
+    @Pointcut("execution(* com.markyang.framework.app..*.*(..)) " +
         "&& @annotation(com.markyang.framework.app.base.annotation.CacheClean)")
     public void pointcut() {}
 

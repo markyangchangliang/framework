@@ -40,7 +40,7 @@ public class PostGetHookApplyAop {
 
 	private final List<ServiceHook> serviceHooks;
 
-	@Pointcut("execution(* com.zxrj.framework.app..*(..)) " +
+	@Pointcut("execution(* com.markyang.framework.app..*(..)) " +
 		"&& @annotation(com.markyang.framework.app.base.annotation.ApplyPostGetHook)")
 	public void condition() {}
 

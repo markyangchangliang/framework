@@ -43,7 +43,7 @@ public interface WorkerRepository extends FrameworkRepository<Worker> {
      * @param positional    职位
      * @param post          职务
      * @param positionGrade 岗位等级
-     * @param online        网上接诊
+     * @param online        网上
      * @return 数据
      */
     List<DeptWorkerTreeDto> getDeptWorkerTreeData(@Param("orgId") String orgId, @Param("type") String type,
@@ -68,28 +68,5 @@ public interface WorkerRepository extends FrameworkRepository<Worker> {
      * @return 结果对象
      */
     IPage<Worker> getOrgDeptWorkers(Page<Worker> page, @Param("deptId") String deptId);
-
-    /**
-     * 获取推荐专家
-     *
-     * @param page       分页对象
-     * @param orgId      机构编号
-     * @param deptType   部门类别
-     * @param positional 职称
-     * @return 结果对象
-     */
-    IPage<WorkerInfoDto> getOnlineWorkers(Page<WorkerInfoDto> page,
-                                          @Param("orgId") String orgId,
-                                          @Param("deptId") String deptId,
-                                          @Param("deptType") String deptType,
-                                          @Param("positional") String positional,
-                                          @Param("workerName") String workerName);
-
-    /**
-     * 获取推荐专家详情
-     * @param workerId
-     * @return
-     */
-    WorkerInfoDto getOnlineWorkerInfo(@Param("workerId") String workerId);
 
 }

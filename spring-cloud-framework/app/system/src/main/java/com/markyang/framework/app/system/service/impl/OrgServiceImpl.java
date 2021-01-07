@@ -80,7 +80,7 @@ public class OrgServiceImpl extends AbstractSearchableServiceImpl<Org, OrgReposi
         }
         // 添加默认职员
         Worker worker = Worker.builder()
-                .type(WorkerEnum.TYPE_OFFICIALS.getValue())
+                .type(WorkerEnum.STATUS_ENABLED.getValue())
                 .orgId(entity.getId())
                 .deptId(defaultDept.getId())
                 .gender(GenderEnum.MALE.getValue())
@@ -89,8 +89,8 @@ public class OrgServiceImpl extends AbstractSearchableServiceImpl<Org, OrgReposi
                 .diagnoseScore(new BigDecimal(0))
                 .diagnoseSpeed(new BigDecimal(0))
                 .status(WorkerEnum.STATUS_ENABLED.getValue())
-                .online(WorkerEnum.ONLINE_DISABLED.getValue())
-                .recommend(WorkerEnum.RECOMMEND_DISABLED.getValue())
+                .online(WorkerEnum.STATUS_ENABLED.getValue())
+                .recommend(WorkerEnum.STATUS_ENABLED.getValue())
                 .build();
         Worker defaultWorker = this.workerService.add(worker);
         if (Objects.isNull(defaultWorker)) {

@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Configuration;
     "com.markyang.framework.config.deserializer",
     "com.markyang.framework.config.banner",
     "com.markyang.framework.config.rabbit",
-    "com.markyang.framework.config.schedule",
     "com.markyang.framework.config.mybatis",
     "com.markyang.framework.util"
 })

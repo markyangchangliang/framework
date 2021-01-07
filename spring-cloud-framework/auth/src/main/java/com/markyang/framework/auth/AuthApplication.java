@@ -3,7 +3,6 @@ package com.markyang.framework.auth;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
-import org.springframework.boot.autoconfigure.quartz.QuartzAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
@@ -11,7 +10,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @author markyang
  */
 @SpringBootApplication(exclude = {
-    QuartzAutoConfiguration.class,
     RabbitAutoConfiguration.class
 })
 @EnableDiscoveryClient

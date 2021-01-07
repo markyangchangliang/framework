@@ -41,7 +41,7 @@ public class ConcurrenceLockingAop {
 	 */
 	public static final String LOCKING_KEY_ATTR_KEY = "REDIS_LOCK_LOCKING_KEY";
 
-	@Pointcut("execution(* com.zxrj.framework.app..*.*(..)) " +
+	@Pointcut("execution(* com.markyang.framework.app..*.*(..)) " +
 		"&& @annotation(com.markyang.framework.app.base.annotation.RedisLock)")
 	public void pointcut() {}
 

@@ -15,17 +15,14 @@ import lombok.Getter;
 @Getter
 public enum DeptEnum implements FrameworkEnum {
     /**
-     * 医技科室
+     * XX科室
      */
     TYPE_MEDICAL_TECHNOLOGY ("a"),
-    /**
-     * 临床科室
-     */
-    TYPE_CLINICAL("b"),
+
     /**
      * 行政科室
      */
-    TYPE_ADMINISTRATIVE("c");
+    TYPE_ADMINISTRATIVE("b");
 
     private String value;
 

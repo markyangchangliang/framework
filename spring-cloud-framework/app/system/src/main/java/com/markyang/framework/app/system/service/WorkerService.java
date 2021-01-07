@@ -57,26 +57,4 @@ public interface WorkerService extends SearchableService<Worker, WorkerSearchFor
      */
     PageVo<Worker> getOrgDeptWorkers(String deptId, Page<Worker> page);
 
-    /**
-     * 获取推荐专家
-     *
-     * @param orgId      机构编号
-     * @param deptId     科室编号
-     * @param deptType   科室类型
-     * @param positional 职称
-     * @param workerName 职员姓名
-     * @param page       分页对象
-     * @return 分页结果对象
-     */
-    PageVo<WorkerInfoDto> getOnlineWorkers(String orgId, String deptId, String deptType, String positional, String workerName,
-                                           Page<WorkerInfoDto> page);
-
-    /**
-     * 获取推荐专家
-     *
-     * @param workerId 职员编号
-     * @return 结果对象
-     */
-    WorkerInfoDto getOnlineWorkerInfo(String workerId);
-
 }

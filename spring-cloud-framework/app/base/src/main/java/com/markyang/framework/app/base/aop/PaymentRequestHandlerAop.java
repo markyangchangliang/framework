@@ -41,7 +41,7 @@ import java.util.Objects;
 @Order(3)
 public class PaymentRequestHandlerAop {
 
-	@Pointcut("execution(* com.zxrj.framework.app..*.*(..)) " +
+	@Pointcut("execution(* com.markyang.framework.app..*.*(..)) " +
 		"&& @annotation(com.markyang.framework.app.base.annotation.PaymentRequest)")
 	public void pointcut() {}
 

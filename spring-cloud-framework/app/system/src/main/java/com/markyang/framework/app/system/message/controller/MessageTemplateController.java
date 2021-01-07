@@ -72,7 +72,12 @@ public class MessageTemplateController extends AbstractSystemController<MessageT
                 .select(MessageBusinessKey::getKeyName, MessageBusinessKey::getRemark)
                 .eq(MessageBusinessKey::getOrgId, AuthUtils.getLoggedUserOrgId())
         );
-        return ResultVo.success(FrameworkConstants.GENERIC_SUCCESS_TIP, messageBusinessKeys.parallelStream().map(messageBusinessKey -> ItemEntry.of(messageBusinessKey.getKeyName(), messageBusinessKey.getRemark())).collect(Collectors.toList()));
+        return ResultVo.success(
+            FrameworkConstants.GENERIC_SUCCESS_TIP, messageBusinessKeys
+            .parallelStream().map(messageBusinessKey
+                    -> ItemEntry.of(messageBusinessKey.getKeyName(),
+                    messageBusinessKey.getRemark()))
+                .collect(Collectors.toList()));
     }
 
     /**

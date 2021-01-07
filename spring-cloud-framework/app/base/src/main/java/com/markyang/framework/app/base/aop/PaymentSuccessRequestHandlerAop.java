@@ -36,7 +36,7 @@ public class PaymentSuccessRequestHandlerAop {
 
 	private final CompositePaymentService compositePaymentService;
 
-	@Pointcut("execution(* com.zxrj.framework.app..*.*(..)) " +
+	@Pointcut("execution(* com.markyang.framework.app..*.*(..)) " +
 		"&& @annotation(com.markyang.framework.app.base.annotation.PaymentSuccessRequest)")
 	public void pointcut() {}
 

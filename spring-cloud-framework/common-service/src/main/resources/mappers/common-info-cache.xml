@@ -12,7 +12,6 @@
                so.his_id,
                so.secret,
                so.his_worker,
-               so.exchange_url,
                so.exchange_secret,
                so.config,
                so.logo

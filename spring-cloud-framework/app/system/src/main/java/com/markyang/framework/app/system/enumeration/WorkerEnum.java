@@ -14,39 +14,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum WorkerEnum implements FrameworkEnum {
-    /**
-     * 医生
-     */
-    TYPE_DOCTORS("a"),
-    /**
-     * 护士
-     */
-    TYPE_NURSE("b"),
-    /**
-     * 行政人员
-     */
-    TYPE_OFFICIALS("c"),
-
-
-    /**
-     * 有网上接诊权限
-     */
-    ONLINE_DISABLED("a"),
-    /**
-     * 没有网上接诊权限
-     */
-    ONLINE_ENABLED("b"),
-
-
-    /**
-     * 不是推荐医生
-     */
-    RECOMMEND_DISABLED("a"),
-    /**
-     * 是推荐医生
-     */
-    RECOMMEND_ENABLED("b"),
-
 
     /**
      * 职员在职状态

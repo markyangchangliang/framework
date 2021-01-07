@@ -63,7 +63,7 @@ public class UserController extends AbstractSystemController<User, UserService, 
     }
 
     /**
-     * 根据用户名加载用户信息
+     * 根据手机号加载用户信息
      *
      * @param phone 手机号
      * @return 结果对象

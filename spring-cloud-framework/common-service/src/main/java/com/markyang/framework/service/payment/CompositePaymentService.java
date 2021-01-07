@@ -6,19 +6,13 @@ import com.markyang.framework.pojo.payment.*;
 import com.markyang.framework.service.payment.exception.NoSuchPaymentRecordException;
 import com.markyang.framework.service.payment.exception.NotSupportedPaymentServiceProvider;
 import com.markyang.framework.service.payment.service.PaymentRecordService;
-import com.markyang.framework.service.payment.task.PaymentStatusQueryTask;
-import com.markyang.framework.service.payment.task.RefundStatusQueryTask;
-import com.markyang.framework.service.payment.task.UnhandledPaymentCleaningTask;
 import com.markyang.framework.pojo.constant.CacheConstants;
 import com.markyang.framework.pojo.entity.payment.PaymentRecord;
 import com.markyang.framework.pojo.enumeration.payment.PaymentStatusEnum;
 import com.markyang.framework.pojo.enumeration.payment.RefundStatusEnum;
 import com.markyang.framework.pojo.enumeration.payment.ServiceProviderEnum;
 import com.markyang.framework.util.RedisUtils;
-import com.markyang.framework.util.ScheduleUtils;
-import com.markyang.framework.util.TriggerUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.quartz.SimpleScheduleBuilder;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -109,19 +103,6 @@ public class CompositePaymentService implements PaymentService {
         );
         // 缓存PaymentDetails
         RedisUtils.set(CacheConstants.PAYMENT_DETAILS_CACHE_KEY_PREFIX + CacheConstants.CACHE_KEY_SEPARATOR + paymentId, paymentDetails, CacheConstants.PAYMENT_DURATION_TIME);
-        // 启动定时任务
-        ScheduleUtils.schedule(TriggerUtils.createTriggerAtDateTimeWithIntervalRepeat(
-            paymentService.getScheduleTaskTriggerNamePrefix(paymentDetails.getServiceProvider()) + paymentId,
-            paymentService.getScheduleTaskTriggerGroupName(paymentDetails.getServiceProvider()),
-            PaymentStatusQueryTask.of(paymentId, paymentDetails.getServiceProvider()),
-            SimpleScheduleBuilder.repeatMinutelyForTotalCount(6),
-            LocalDateTime.now().plusMinutes(1)));
-        // 启动待支付订单清理定时任务
-        ScheduleUtils.schedule(TriggerUtils.createTriggerAtDateTime(paymentService.getScheduleTaskTriggerNamePrefix(paymentDetails.getServiceProvider()) + "cleaning_" + paymentId,
-            paymentService.getScheduleTaskTriggerGroupName(paymentDetails.getServiceProvider()),
-            UnhandledPaymentCleaningTask.of(paymentId, paymentDetails.getServiceProvider(), paymentDetails.getBusinessKey(), paymentDetails.getBusinessId()),
-            LocalDateTime.now().plusDays(2)
-            ));
     }
 
     /**
@@ -211,8 +192,6 @@ public class CompositePaymentService implements PaymentService {
         this.paymentRecordService.update(paymentRecord);
         // 缓存RefundDetails
         RedisUtils.set(CacheConstants.REFUND_DETAILS_CACHE_KEY_PREFIX + CacheConstants.CACHE_KEY_SEPARATOR + result.getRefundId(), refundDetails, CacheConstants.PAYMENT_DURATION_TIME);
-        // 启动定时任务
-        ScheduleUtils.schedule(TriggerUtils.createTriggerAtDateTimeWithIntervalRepeat(paymentService.getScheduleTaskTriggerNamePrefix(paymentRecord.getServiceProvider()) + refundDetails.getPaymentId(), paymentService.getScheduleTaskTriggerGroupName(paymentRecord.getServiceProvider()), RefundStatusQueryTask.of(refundDetails.getPaymentId(), paymentRecord.getSpPaymentId(), result.getRefundId(), paymentRecord.getServiceProvider()), SimpleScheduleBuilder.repeatMinutelyForTotalCount(6), LocalDateTime.now().plusMinutes(1)));
     }
 
     /**
@@ -250,38 +229,6 @@ public class CompositePaymentService implements PaymentService {
         for (PaymentService paymentService : this.paymentServices) {
             if (paymentService.support(serviceProvider)) {
                 return paymentService.reversePayment(paymentId, spPaymentId, serviceProvider);
-            }
-        }
-        throw new NotSupportedPaymentServiceProvider("不支持的支付服务提供商：" + serviceProvider);
-    }
-
-    /**
-     * 获取定时任务触发器名称前缀
-     *
-     * @param serviceProvider 服务提供商
-     * @return 名称前缀
-     */
-    @Override
-    public String getScheduleTaskTriggerNamePrefix(ServiceProviderEnum serviceProvider) {
-        for (PaymentService paymentService : this.paymentServices) {
-            if (paymentService.support(serviceProvider)) {
-                return paymentService.getScheduleTaskTriggerNamePrefix(serviceProvider);
-            }
-        }
-        throw new NotSupportedPaymentServiceProvider("不支持的支付服务提供商：" + serviceProvider);
-    }
-
-    /**
-     * 获取定时任务触发器组名称
-     *
-     * @param serviceProvider 服务提供商
-     * @return 组名称
-     */
-    @Override
-    public String getScheduleTaskTriggerGroupName(ServiceProviderEnum serviceProvider) {
-        for (PaymentService paymentService : this.paymentServices) {
-            if (paymentService.support(serviceProvider)) {
-                return paymentService.getScheduleTaskTriggerGroupName(serviceProvider);
             }
         }
         throw new NotSupportedPaymentServiceProvider("不支持的支付服务提供商：" + serviceProvider);

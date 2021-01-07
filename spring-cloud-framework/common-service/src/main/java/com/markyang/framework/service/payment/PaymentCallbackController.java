@@ -10,7 +10,6 @@ import com.markyang.framework.pojo.payment.RefundDetails;
 import com.markyang.framework.pojo.payment.RefundResult;
 import com.markyang.framework.service.payment.service.PaymentRecordService;
 import com.markyang.framework.util.RedisUtils;
-import com.markyang.framework.util.ScheduleUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -116,8 +115,6 @@ public abstract class PaymentCallbackController {
      * @param serviceProvider 服务提供商
      */
     private void handleCommonPaymentLogic(PaymentResult paymentResult, ServiceProviderEnum serviceProvider) {
-        ScheduleUtils.cancelSchedule(this.compositePaymentService.getScheduleTaskTriggerNamePrefix(serviceProvider) + paymentResult.getPaymentId(), this.compositePaymentService.getScheduleTaskTriggerGroupName(serviceProvider));
-        ScheduleUtils.cancelSchedule(this.compositePaymentService.getScheduleTaskTriggerNamePrefix(serviceProvider) + "cleaning_" + paymentResult.getPaymentId(), this.compositePaymentService.getScheduleTaskTriggerGroupName(serviceProvider));
         // 清除Redis支付信息
         String paymentInfoCacheKey = CacheConstants.PAYMENT_INFO_CACHE_KEY_CACHE_KEY_PREFIX + CacheConstants.CACHE_KEY_SEPARATOR + paymentResult.getPaymentId();
         RedisUtils.remove(RedisUtils.getString(paymentInfoCacheKey, ""));
@@ -185,8 +182,6 @@ public abstract class PaymentCallbackController {
             paymentRecord.setRefundStatus(refundResult.getRefundStatus());
             this.paymentRecordService.update(paymentRecord);
         });
-        // 取消定时任务
-        ScheduleUtils.cancelSchedule(this.compositePaymentService.getScheduleTaskTriggerNamePrefix(serviceProvider) + refundResult.getRefundId(), this.compositePaymentService.getScheduleTaskTriggerGroupName(serviceProvider));
         // 清除退款详情信息
         // RedisUtils.remove(CacheConstants.REFUND_DETAILS_CACHE_KEY_PREFIX + CacheConstants.CACHE_KEY_SEPARATOR + refundResult.getRefundId());
     }

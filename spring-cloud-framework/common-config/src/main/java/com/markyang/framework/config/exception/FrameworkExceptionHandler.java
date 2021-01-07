@@ -45,7 +45,8 @@ public class FrameworkExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(FrameworkException.class)
     public ResultVo<?> handleFrameworkException(FrameworkException exception) {
-        log.error("程序异常[{}]", exception.getMessage());
+        log.error("程序异常[{}]", exception);
+        exception.printStackTrace();
         return ResultVo.error(exception.getMessage());
     }
 

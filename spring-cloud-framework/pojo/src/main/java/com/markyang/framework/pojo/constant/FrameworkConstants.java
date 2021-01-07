@@ -79,7 +79,7 @@ public interface FrameworkConstants {
     /**
      * 应用ID
      */
-    String REGIONAL_MEDICAL_APP_ID = "regional_medical";
+    String REGIONAL_MEDICAL_APP_ID = "markyang";
 
     /**
      * 数据字典字段含义字段名称后缀

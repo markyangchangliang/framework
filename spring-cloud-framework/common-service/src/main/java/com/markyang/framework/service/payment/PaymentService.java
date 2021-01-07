@@ -73,19 +73,6 @@ public interface PaymentService {
      */
     PaymentReversionResult reversePayment(String paymentId, String spPaymentId, ServiceProviderEnum serviceProvider);
 
-    /**
-     * 获取定时任务触发器名称前缀
-     * @param serviceProvider 服务提供商
-     * @return 名称前缀
-     */
-    String getScheduleTaskTriggerNamePrefix(ServiceProviderEnum serviceProvider);
-
-    /**
-     * 获取定时任务触发器组名称
-     * @param serviceProvider 服务提供商
-     * @return 组名称
-     */
-    String getScheduleTaskTriggerGroupName(ServiceProviderEnum serviceProvider);
 
     /**
      * 是否支持支付方式

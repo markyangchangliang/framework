@@ -138,41 +138,4 @@ public class WorkerController extends AbstractSystemController<Worker, WorkerSer
         this.workerService.updateWorkerDept(deptWorker);
         return ResultVo.success(FrameworkConstants.GENERIC_SUCCESS_TIP);
     }
-
-    /**
-     * 获取推荐专家
-     *
-     * @param orgId      机构编号
-     * @param deptId     科室编号
-     * @param deptType   科室类别
-     * @param positional 职称
-     * @param page       分页对象
-     * @return 结果分页对象
-     */
-    @ApiOperationSupport(order = 7, author = "yangchangliang")
-    @ApiOperation(value = "获取推荐专家")
-    @GetMapping(value = "/onlineWorkers", produces = "application/json;charset=UTF-8")
-    public ResultVo<PageVo<WorkerInfoDto>> getOnlineWorkers(@RequestParam(required = false, value = "orgId") String orgId,
-                                                            @RequestParam(required = false, value = "deptId") String deptId,
-                                                            @RequestParam(required = false, value = "deptType") String deptType,
-                                                            @RequestParam(required = false, value = "positional") String positional,
-                                                            @RequestParam(required = false, value = "workerName") String workerName,
-                                                            @PageDefault(sort = "diagnose_num,desc") Page<WorkerInfoDto> page) {
-        return ResultVo.success(FrameworkConstants.GENERIC_SUCCESS_TIP, this.workerService.getOnlineWorkers(orgId, deptId, deptType, positional, workerName, page));
-    }
-
-    /**
-     * 获取推荐专家详情
-     *
-     * @param workerId 职员编号
-     * @return 结果对象
-     */
-    @ApiOperationSupport(order = 8, author = "yangchangliang")
-    @ApiOperation(value = "获取推荐专家详情")
-    @GetMapping(value = "/onlineWorkerInfo", produces = "application/json;charset=UTF-8")
-    public ResultVo<WorkerInfoDto> getOnlineWorkers(@RequestParam(required = true, value = "workerId") String workerId) {
-        return ResultVo.success(FrameworkConstants.GENERIC_SUCCESS_TIP, this.workerService.getOnlineWorkerInfo(workerId));
-    }
-
-
 }

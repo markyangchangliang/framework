@@ -1,13 +1,7 @@
 package com.markyang.framework.app.base.upload.service.support;
 
-import com.markyang.framework.app.base.upload.task.TimeoutUploadedFileDeleteTask;
 import com.markyang.framework.app.base.upload.service.UploadService;
-import com.markyang.framework.pojo.schedule.constant.TriggerGroupConstants;
-import com.markyang.framework.util.ScheduleUtils;
-import com.markyang.framework.util.TriggerUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.time.LocalDateTime;
 
 /**
  * 抽象的上传文件服务类
@@ -41,12 +35,6 @@ public abstract class AbstractUploadService implements UploadService {
     public Object upload(MultipartFile file) {
         Object result = this.doUpload(file);
         String key = this.getKey(result);
-        // 添加文件删除定时任务
-        ScheduleUtils.schedule(TriggerUtils.createTriggerAtDateTime(
-            TimeoutUploadedFileDeleteTask.NAME_PREFIX + key,
-            TriggerGroupConstants.FILE_DELETE_GROUP,
-            TimeoutUploadedFileDeleteTask.of(key, this.getType()),
-            LocalDateTime.now().plusHours(1)));
         return result;
     }
 

@@ -292,29 +292,4 @@ public class WorkerServiceImpl extends AbstractSearchableServiceImpl<Worker, Wor
     public PageVo<Worker> getOrgDeptWorkers(String deptId, Page<Worker> page) {
         return PageVo.of(this.repository.getOrgDeptWorkers(page, deptId));
     }
-
-    /**
-     * 获取推荐专家
-     *
-     * @param orgId 机构编号
-     * @param page  分页对象
-     * @return 结果对象
-     */
-    @ApplyPostGetHook
-    @Override
-    public PageVo<WorkerInfoDto> getOnlineWorkers(String orgId, String deptId, String deptType, String positional, String workerName, Page<WorkerInfoDto> page) {
-        return PageVo.of(this.repository.getOnlineWorkers(page, orgId, deptId, deptType, positional, workerName));
-    }
-
-    /**
-     * 获取推荐专家详情
-     * @param workerId 职员编号
-     * @return 结果对象
-     */
-    @ApplyPostGetHook
-    @Override
-    public WorkerInfoDto getOnlineWorkerInfo(String workerId) {
-        return this.repository.getOnlineWorkerInfo(workerId);
-    }
-
 }

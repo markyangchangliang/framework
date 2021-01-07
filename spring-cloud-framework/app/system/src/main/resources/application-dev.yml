@@ -74,13 +74,6 @@ framework: # 自定义配置
       max-size: 5242880 # 5兆大小
   beans: # Bean装配配置
     composite-wx-ma-service: true # 装配微信小程序配置
-  quartz: # 定时任务配置
-    data-source:
-      driver-class-name: com.mysql.cj.jdbc.Driver # 数据库驱动
-      type: com.alibaba.druid.pool.DruidDataSource # 数据源类型
-      url: jdbc:mysql://${framework.database.host}:${framework.database.port}/spring-cloud-framework-new?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8 # 数据库链接
-      username: ${framework.database.username} # 用户名
-      password: ${framework.database.password} # 密码
   tencent: # 腾讯云服务配置
     app-id: 1257263570
     secret-id: AKID2oLFrNQhSxDuObLKCn6fz2pNg8MJBt63

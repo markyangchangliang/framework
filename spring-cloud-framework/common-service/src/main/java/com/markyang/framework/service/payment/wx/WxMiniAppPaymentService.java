@@ -11,7 +11,6 @@ import com.markyang.framework.service.wx.CompositeWxPayService;
 import com.markyang.framework.pojo.enumeration.payment.ServiceProviderEnum;
 import com.markyang.framework.pojo.payment.PaymentCreationResult;
 import com.markyang.framework.pojo.payment.PaymentDetails;
-import com.markyang.framework.pojo.schedule.constant.TriggerGroupConstants;
 import com.markyang.framework.util.DateTimeUtils;
 import com.markyang.framework.util.OrderUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -74,28 +73,6 @@ public class WxMiniAppPaymentService extends WxPaymentService {
             log.error("创建微信支付订单出现错误：{}", e.getReturnMsg());
             throw new WxMiniAppPaymentException("创建支付订单失败：" + e.getReturnMsg());
         }
-    }
-
-    /**
-     * 获取定时任务触发器名称前缀
-     *
-     * @param serviceProvider 服务提供商
-     * @return 名称前缀
-     */
-    @Override
-    public String getScheduleTaskTriggerNamePrefix(ServiceProviderEnum serviceProvider) {
-        return TRIGGER_NAME_PREFIX;
-    }
-
-    /**
-     * 获取定时任务触发器组名称
-     *
-     * @param serviceProvider 服务提供商
-     * @return 组名称
-     */
-    @Override
-    public String getScheduleTaskTriggerGroupName(ServiceProviderEnum serviceProvider) {
-        return TriggerGroupConstants.WX_PAYMENT_GROUP;
     }
 
     /**

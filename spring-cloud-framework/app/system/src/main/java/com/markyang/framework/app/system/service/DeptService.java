@@ -28,7 +28,7 @@ public interface DeptService extends SearchableService<Dept, DeptSearchForm> {
 
 
     /**
-     * 添加默认部门，不同步到企业微信，用于添加默认部门
+     * 添加默认部门，用于添加默认部门
      *
      * @param dept 部门信息
      * @return 部门信息

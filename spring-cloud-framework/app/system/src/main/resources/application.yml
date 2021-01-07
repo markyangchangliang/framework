@@ -48,24 +48,6 @@ spring:
     type: redis # 使用Redis缓存
   banner:
     charset: UTF-8 # Banner编码
-  quartz: # 定时任务配置
-    auto-startup: true # 自动启动
-    job-store-type: memory # 任务存储类型
-    scheduler-name: systemScheduler # 调度名称
-    wait-for-jobs-to-complete-on-shutdown: true # 任务调度完成后停止
-    properties:
-      org.quartz.scheduler.instanceName: systemScheduler
-      org.quartz.scheduler.instanceId: AUTO
-      org.quartz.scheduler.rmi.export: false # 关闭远程管理相关配置
-      org.quartz.scheduler.rmi.proxy: false # 关闭远程管理相关配置
-      org.quartz.scheduler.wrapJobExecutionInUserTransaction: false # 关闭远程管理相关配置
-      org.quartz.jobStore.isClustered: true # 开启集群
-      org.quartz.jobStore.clusterCheckinInterval: 3000 # 分布式节点有效性检查时间间隔，单位：毫秒,默认值是15000
-      org.quartz.jobStore.misfireThreshold: 6000 # 容许的最大作业延长时间 最大能忍受的触发超时时间
-      org.quartz.jobStore.tablePrefix: SYS_ # 数据库表前缀
-      org.quartz.threadPool.class: org.springframework.scheduling.quartz.SimpleThreadPoolTaskExecutor
-      org.quartz.threadPool.threadCount: 2 # 任务执行线程
-      org.quartz.threadPool.threadsInheritContextClassLoaderOfInitializingThread: true
   cloud:
     circuitbreaker:
       hystrix:

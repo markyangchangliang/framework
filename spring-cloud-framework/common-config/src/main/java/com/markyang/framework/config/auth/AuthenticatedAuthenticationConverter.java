@@ -71,11 +71,7 @@ public class AuthenticatedAuthenticationConverter extends DefaultUserAuthenticat
             // 自定义的转换
             AuthenticatedUser authenticatedUser = AuthenticatedUser.builder()
                 .userId(map.get("userId").toString())
-                .orgId(map.get("orgId").toString())
-                .deptId(map.get("deptId").toString())
                 .workerId(map.get("workerId").toString())
-                .name(TypeCastUtils.cast(map.get("name")))
-                .mobilePhone(TypeCastUtils.cast(map.get("mobilePhone")))
                 .username(TypeCastUtils.cast(map.get("username")))
                 .build();
             return new AuthenticatedUserAuthenticationToken(authenticatedUser, Collections.emptyList());
