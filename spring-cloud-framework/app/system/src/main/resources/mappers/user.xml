@@ -35,16 +35,26 @@
         where u.id = #{userId}
     </select>
     <select id="getUserByUsername" resultType="com.markyang.framework.pojo.auth.AuthenticatedUser">
-        SELECT
-            *
-        FROM
-            sys_user su
-        WHERE
-            su.username = #{username}
-        GROUP BY
-            su.id,
-            su.username,
-            su. PASSWORD
+        select su.id                                             as user_id,
+               su.worker_id,
+               su.username,
+               su.password,
+               if(su.status = 'a', true, false)                  as enabled,
+               sw.name,
+               sw.mobile_phone,
+               sd.id                                             as dept_id,
+               sd.org_id,
+               group_concat(sm.permitted_ant_uris separator ',') as permitted_ant_uris
+        from sys_user su
+                 join sys_worker sw on su.worker_id = sw.id
+                 join sys_dept_worker sdw on su.worker_id = sdw.worker_id and sdw.status = 'a'
+                 join sys_dept sd on sd.id = sdw.dept_id
+                 join sys_user_role sur on su.id = sur.user_id
+                 join sys_role sr on sr.id = sur.role_id
+                 join sys_role_menu srm on sur.role_id = srm.role_id
+                 join sys_menu sm on sm.id = srm.menu_id and sm.type = '1'
+        where su.username = #{username}
+        group by su.id, su.username, su.password, sw.name, sd.id
     </select>
     <select id="getUserByMobilePhone" resultType="com.markyang.framework.pojo.auth.AuthenticatedUser">
         select su.id                                             as user_id,
@@ -64,7 +74,7 @@
                  join sys_user_role sur on su.id = sur.user_id
                  join sys_role sr on sr.id = sur.role_id
                  join sys_role_menu srm on sur.role_id = srm.role_id
-                 join sys_menu sm on sm.id = srm.menu_id and sm.type = '2'
+                 join sys_menu sm on sm.id = srm.menu_id and sm.type = '1'
         where sw.mobile_phone = #{mobilePhone}
         group by su.id, su.username, su.password, sw.name, sd.id
     </select>
@@ -86,7 +96,7 @@
                  join sys_user_role sur on su.id = sur.user_id
                  join sys_role sr on sr.id = sur.role_id
                  join sys_role_menu srm on sur.role_id = srm.role_id
-                 join sys_menu sm on sm.id = srm.menu_id and sm.type = '2'
+                 join sys_menu sm on sm.id = srm.menu_id and sm.type = '1'
         where su.id = #{userId}
         group by su.id, su.username, su.password, sw.name, sd.id
     </select>

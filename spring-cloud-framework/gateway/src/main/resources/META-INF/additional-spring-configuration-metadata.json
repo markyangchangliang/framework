@@ -34,6 +34,16 @@
       "name": "framework.database.password",
       "type": "java.lang.String",
       "description": "密码."
+    },
+    {
+      "name": "zuul.ratelimit.sensitive-headers",
+      "type": "java.lang.String",
+      "description": "Description for zuul.ratelimit.sensitive-headers."
+    },
+    {
+      "name": "hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds",
+      "type": "java.lang.String",
+      "description": "Description for hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds."
     }
   ]
 }

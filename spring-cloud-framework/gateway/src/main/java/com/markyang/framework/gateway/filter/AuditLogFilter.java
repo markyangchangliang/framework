@@ -48,7 +48,8 @@ public class AuditLogFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        if (StringUtils.endsWithAny(request.getRequestURI().toLowerCase(), FrameworkConstants.IGNORED_REQUEST_SUFFIXES)) {
+        String toLowerCase = request.getRequestURI().toLowerCase();
+        if (StringUtils.endsWithAny(toLowerCase, FrameworkConstants.IGNORED_REQUEST_SUFFIXES)) {
             filterChain.doFilter(request, response);
             return;
         }

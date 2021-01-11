@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(this.adminServerProperties.path("/login"), this.adminServerProperties.path("/assets/**"))
             .permitAll()
             .antMatchers("/actuator/**")
-            .hasIpAddress("192.168.0.103")
+            .hasIpAddress("192.168.0.104")
             .anyRequest()
             .authenticated();
     }
