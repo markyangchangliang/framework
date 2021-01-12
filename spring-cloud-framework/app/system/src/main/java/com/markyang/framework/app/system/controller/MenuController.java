@@ -49,7 +49,7 @@ public class MenuController extends AbstractSystemController<Menu, MenuService, 
      * @return 结果对象
      */
     @ApiOperationSupport(order = 10, author = "yangchangliang")
-    @Cacheable(cacheNames = "#root.targetClass.getAnnotation(T(com.zxrj.framework.app.base.annotation.CacheName)).value()", unless = "!#result.isSuccess()")
+    @Cacheable(cacheNames = "#root.targetClass.getAnnotation(T(com.markyang.framework.app.base.annotation.CacheName)).value()", unless = "!#result.isSuccess()")
     @ApiOperation(value = "获取树形菜单", notes = "根据应用编号获取树形菜单")
     @GetMapping(value = "/tree/{appId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVo<List<Menu>> getTreeMenus(@PathVariable("appId") String userId) {
@@ -63,7 +63,7 @@ public class MenuController extends AbstractSystemController<Menu, MenuService, 
      * @return 结果对象
      */
     @ApiOperationSupport(order = 11, author = "dragon")
-    @Cacheable(cacheNames = "#root.targetClass.getAnnotation(T(com.zxrj.framework.app.base.annotation.CacheName)).value()", unless = "!#result.isSuccess()")
+    @Cacheable(cacheNames = "#root.targetClass.getAnnotation(T(com.markyang.framework.app.base.annotation.CacheName)).value()", unless = "!#result.isSuccess()")
     @ApiOperation(value = "获取用户菜单", notes = "根据应用编号及用户编号获取授权菜单")
     @GetMapping(value = {"/userMenus/{userId}/{appId}", "/userMenus/{userId}"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVo<List<MenuTreeDto>> getUserAuthorizedMenus(@PathVariable("userId") String userId, @PathVariable(required = false) String appId) {

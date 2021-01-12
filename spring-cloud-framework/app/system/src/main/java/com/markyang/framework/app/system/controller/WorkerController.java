@@ -86,7 +86,7 @@ public class WorkerController extends AbstractSystemController<Worker, WorkerSer
             @ApiImplicitParam(name = "size", value = "分页参数-分页大小", defaultValue = "20", paramType = "query", dataTypeClass = Integer.class, example = "20"),
             @ApiImplicitParam(name = "sort", value = "分页参数-排序", defaultValue = TableConstants.CREATED_DATETIME_FIELD_NAME + ",desc", paramType = "query", dataTypeClass = String.class, example = TableConstants.CREATED_DATETIME_FIELD_NAME + ",desc"),
     })
-    @Cacheable(cacheNames = "#root.targetClass.getAnnotation(T(com.zxrj.framework.app.base.annotation.CacheName)).value()", unless = "!#result.isSuccess()")
+    @Cacheable(cacheNames = "#root.targetClass.getAnnotation(T(com.markyang.framework.app.base.annotation.CacheName)).value()", unless = "!#result.isSuccess()")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @Override
     public ResultVo<PageVo<Worker>> get(Page<Worker> page, WorkerSearchForm searchForm) {

@@ -73,7 +73,7 @@ public class AbstractFrameworkController<E extends BaseEntity, SS extends Search
      */
     @ApiOperationSupport(order = 1, author = "yangchangliang")
     @ApiOperation(value = "获取单条数据", notes = "根据id获取单条数据")
-    @Cacheable(cacheNames = "#root.targetClass.getAnnotation(T(com.zxrj.framework.app.base.annotation.CacheName)).value()", unless = "!#result.isSuccess()")
+    @Cacheable(cacheNames = "#root.targetClass.getAnnotation(T(com.markyang.framework.app.base.annotation.CacheName)).value()", unless = "!#result.isSuccess()")
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVo<E> get(@ApiParam(name = "id", value = "数据ID", required = true, example = "1") @PathVariable String id) {
         // 带有ID的单条数据请求
@@ -103,7 +103,7 @@ public class AbstractFrameworkController<E extends BaseEntity, SS extends Search
         @ApiImplicitParam(name = "size", value = "分页参数-分页大小", defaultValue = "20", paramType = "query", dataTypeClass = Integer.class, example = "20"),
         @ApiImplicitParam(name = "sort", value = "分页参数-排序", defaultValue = TableConstants.CREATED_DATETIME_FIELD_NAME + ",desc", paramType = "query", dataTypeClass = String.class, example = TableConstants.CREATED_DATETIME_FIELD_NAME + ",desc"),
     })
-    @Cacheable(cacheNames = "#root.targetClass.getAnnotation(T(com.zxrj.framework.app.base.annotation.CacheName)).value()", unless = "!#result.isSuccess()")
+    @Cacheable(cacheNames = "#root.targetClass.getAnnotation(T(com.markyang.framework.app.base.annotation.CacheName)).value()", unless = "!#result.isSuccess()")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVo<PageVo<E>> get(@PageDefault(sort = TableConstants.CREATED_DATETIME_FIELD_NAME + FrameworkConstants.COMMA_SEPARATOR + FrameworkConstants.ORDER_DESC) @ApiIgnore Page<E> page, S searchForm) {
         // 处理分页排序条件
@@ -156,7 +156,7 @@ public class AbstractFrameworkController<E extends BaseEntity, SS extends Search
      */
     @ApiOperationSupport(order = 3, author = "yangchangliang", ignoreParameters = "id")
     @ApiOperation(value = "添加数据", notes = "添加一条数据")
-    @CacheEvict(cacheNames = "#root.targetClass.getAnnotation(T(com.zxrj.framework.app.base.annotation.CacheName)).value()", allEntries = true)
+    @CacheEvict(cacheNames = "#root.targetClass.getAnnotation(T(com.markyang.framework.app.base.annotation.CacheName)).value()", allEntries = true)
     @FormValidate(FrameworkGroups.Add.class)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional(rollbackFor = Exception.class)
@@ -191,7 +191,7 @@ public class AbstractFrameworkController<E extends BaseEntity, SS extends Search
      */
     @ApiOperationSupport(order = 4, author = "yangchangliang")
     @ApiOperation(value = "更新数据", notes = "更新一条数据")
-    @CacheEvict(cacheNames = "#root.targetClass.getAnnotation(T(com.zxrj.framework.app.base.annotation.CacheName)).value()", allEntries = true)
+    @CacheEvict(cacheNames = "#root.targetClass.getAnnotation(T(com.markyang.framework.app.base.annotation.CacheName)).value()", allEntries = true)
     @FormValidate(FrameworkGroups.Update.class)
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional(rollbackFor = Exception.class)
@@ -252,7 +252,7 @@ public class AbstractFrameworkController<E extends BaseEntity, SS extends Search
      */
     @ApiOperationSupport(order = 5, author = "yangchangliang")
     @ApiOperation(value = "删除数据", notes = "删除一条数据")
-    @CacheEvict(cacheNames = "#root.targetClass.getAnnotation(T(com.zxrj.framework.app.base.annotation.CacheName)).value()", allEntries = true)
+    @CacheEvict(cacheNames = "#root.targetClass.getAnnotation(T(com.markyang.framework.app.base.annotation.CacheName)).value()", allEntries = true)
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional(rollbackFor = Exception.class)
     public ResultVo<?> delete(@ApiParam(name = "id", value = "需删除数据的ID", required = true, example = "1") @PathVariable String id) {
@@ -285,7 +285,7 @@ public class AbstractFrameworkController<E extends BaseEntity, SS extends Search
      * 获取所有字典
      * @return 结果对象
      */
-    @Cacheable(cacheNames = "#root.targetClass.getAnnotation(T(com.zxrj.framework.app.base.annotation.CacheName)).value()", unless = "!#result.isSuccess()")
+    @Cacheable(cacheNames = "#root.targetClass.getAnnotation(T(com.markyang.framework.app.base.annotation.CacheName)).value()", unless = "!#result.isSuccess()")
     @ApiOperationSupport(order = 6, author = "yangchangliang")
     @ApiOperation(value = "获取所有字典", notes = "根据当前功能获取其所有字典")
     @GetMapping(value = "/dict", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -299,7 +299,7 @@ public class AbstractFrameworkController<E extends BaseEntity, SS extends Search
      * @param fieldName 需获取数据字典的字段名称
      * @return 结果对象
      */
-    @Cacheable(cacheNames = "#root.targetClass.getAnnotation(T(com.zxrj.framework.app.base.annotation.CacheName)).value()", unless = "!#result.isSuccess()")
+    @Cacheable(cacheNames = "#root.targetClass.getAnnotation(T(com.markyang.framework.app.base.annotation.CacheName)).value()", unless = "!#result.isSuccess()")
     @ApiOperationSupport(order = 7, author = "yangchangliang")
     @ApiOperation(value = "获取单个字段的字典", notes = "根据字段获取字典")
     @GetMapping(value = "/dict/{fieldName}", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -49,7 +49,7 @@ public class MessageBusinessKeyController extends AbstractSystemController<Messa
      */
     @GetMapping("/dataClasses")
     public ResultVo<List<ItemEntry>> getAllArgumentsDataClasses() {
-        Set<Class<?>> classes = ClassOperationUtils.scanPackageClasses("com.zxrj.framework.pojo.dto.message", metadataReader -> metadataReader.getAnnotationMetadata().hasAnnotation(TemplateMessageArgumentsData.class.getName()));
+        Set<Class<?>> classes = ClassOperationUtils.scanPackageClasses("com.markyang.framework.pojo.dto.message", metadataReader -> metadataReader.getAnnotationMetadata().hasAnnotation(TemplateMessageArgumentsData.class.getName()));
         List<ItemEntry> entries = classes.parallelStream().map(clazz -> {
             String value = clazz.getAnnotation(TemplateMessageArgumentsData.class).value();
             if (StringUtils.isBlank(value)) {

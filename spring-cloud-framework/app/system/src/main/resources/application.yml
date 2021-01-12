@@ -121,7 +121,7 @@ security: # 安全相关配置
 
 mybatis-plus:
   mapper-locations: classpath*:/mappers/**/*.xml # MapperXML文件位置
-  # type-handlers-package: com.zxrj.framework.pojo.type.handler # 类型转换器包配置
+  # type-handlers-package: com.markyang.framework.pojo.type.handler # 类型转换器包配置
   check-config-location: false # 不检查MyBatis XML 文件的存在
   executor-type: reuse # 该执行器类型会复用预处理语句（PreparedStatement）
   configuration: # 原生 MyBatis 配置
