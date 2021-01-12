@@ -68,7 +68,9 @@ public class FrameworkExpressionEvaluator extends CachedExpressionEvaluator {
         }
         // 设置Bean解析工厂
         evaluationContext.setBeanResolver(new BeanFactoryResolver(this.applicationContext));
-        return this.getExpression(EXPRESSION_CACHE, new AnnotatedElementKey(method, targetClass), expression).getValue(evaluationContext, desiredType);
+        return this.getExpression(EXPRESSION_CACHE,
+            new AnnotatedElementKey(method, targetClass), expression)
+            .getValue(evaluationContext, desiredType);
     }
 
     /**

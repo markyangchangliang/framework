@@ -80,8 +80,8 @@ public class WxMiniAppTemplateMessageSendingChannel extends AbstractEntityBasedT
     @Override
     protected String resolveMessageReceiver(MessageReceiverDetails messageReceiverDetails) {
         Object data = messageReceiverDetails.getData();
-        if (messageReceiverDetails.getType() == MessageReceiverTypeEnum.PATIENT) {
-            //return ((PatientInfoDto) data).getWxOpenId();
+        if (messageReceiverDetails.getType() == MessageReceiverTypeEnum.WORKER) {
+            //return ;
         }
         return null;
     }

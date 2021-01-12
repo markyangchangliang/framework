@@ -64,6 +64,7 @@ public class AccessDecisionService {
             log.info(AnsiOutput.toString(AnsiColor.BRIGHT_GREEN, "[{}]有权限访问：{}"), authenticatedUser.getName(), requestUri);
         } else {
             log.warn(AnsiOutput.toString(AnsiColor.RED, "[{}]无权限访问：{}"), authenticatedUser.getName(), requestUri);
+            //return false;
         }
         return true;
     }

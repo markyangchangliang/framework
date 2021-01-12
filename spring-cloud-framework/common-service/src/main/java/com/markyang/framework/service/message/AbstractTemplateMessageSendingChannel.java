@@ -85,13 +85,7 @@ public abstract class AbstractTemplateMessageSendingChannel implements MessageSe
      * @return 消息接受者详情列表
      */
     protected List<MessageReceiverDetails> resolveMessageReceiverDetails(MessageDetails messageDetails) {
-        if (StringUtils.isNotBlank(messageDetails.getToPatients())) {
-            // 患者
-            return this.resolveReceivers(messageDetails.getToPatients(), MessageReceiverTypeEnum.PATIENT);
-        } else if (StringUtils.isNotBlank(messageDetails.getToFamilyMembers())) {
-            // 家庭成员
-            return this.resolveReceivers(messageDetails.getToFamilyMembers(), MessageReceiverTypeEnum.FAMILY_MEMBER);
-        } else if (StringUtils.isNotBlank(messageDetails.getToWorkers())) {
+       if (StringUtils.isNotBlank(messageDetails.getToWorkers())) {
             // 职员
             return this.resolveReceivers(messageDetails.getToWorkers(), MessageReceiverTypeEnum.WORKER);
         } else {

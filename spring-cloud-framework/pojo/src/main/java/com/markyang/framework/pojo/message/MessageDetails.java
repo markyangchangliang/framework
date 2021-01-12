@@ -32,12 +32,12 @@ public class MessageDetails {
     private Object data;
 
     /**
-     * 消息接收方（患者）
+     * 消息接收方
      */
     private String toPatients;
 
     /**
-     * 消息接收方（家庭成员）
+     * 消息接收方
      */
     private String toFamilyMembers;
 

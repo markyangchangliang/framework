@@ -7,15 +7,6 @@ package com.markyang.framework.pojo.message;
  * @version 1
  */
 public enum MessageReceiverTypeEnum {
-
-    /**
-     * 患者
-     */
-    PATIENT,
-    /**
-     * 家庭成员
-     */
-    FAMILY_MEMBER,
     /**
      * 机构人员
      */

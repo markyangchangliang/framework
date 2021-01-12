@@ -51,21 +51,21 @@ framework: # 自定义配置
     password: 199294 # 密码
   wx:
     cp: # 企业微信配置
-      corp-id: ww9a6f23d2f63dce82 # 企业ID
-      corp-secret: qZN9rK-6IiPNkRhgEByLs8k0mRSSzRZx56IQ6mZIQHI # 企业密匙
+      corp-id: xxxxxxx # 企业ID
+      corp-secret: xxxxxxxxx # 企业密匙
       org: # 机构端小程序
-        agent-id: 1000005 # 代理ID
-        secret: SsyXb7VG2_Cvs3BBU_5SqBOX20JzaOjY0PWZxp4bWW4 # 管理密匙
+        agent-id: xxxxxxxxxxx # 代理ID
+        secret: xxxxxxxxxxxxxxx # 管理密匙
     mini-app: # 小程序配置
       org: # 机构端小程序
-        app-id: wx1ca74a24d1b1b094 # appId
-        app-secret: 32bdf791d33bb488d60522026c838cb5 # appSecret
+        app-id: xxxxxxxxxxx # appId
+        app-secret: xxxxxxxxxxxxxxxxxx # appSecret
     mp: #公众号
       configs:
-        - appid: wx94b9f159ba6348d6 #微信公众号或者小程序等的appid 必填
-          secret: 150bd05b114adb7685edd5409a5c91f2 #微信公众号或者小程序等的secret 必填
-          token: zhixingruijing
-          aesKey: R1KsbX9ZMcQJYJWnQEvg5ybkm2Qy3lgUfUUYFMhQ16m
+        - appid: xxxxxxxxxxxxxxxx #微信公众号或者小程序等的appid 必填
+          secret: xxxxxxxxxxxxxxxxxxx #微信公众号或者小程序等的secret 必填
+          token: xxxxxxxxxxxxxxx
+          aesKey: xxxxxxxxxxxxxxxxxxxx
           msgDataFormat: JSON
   upload: # 文件上传配置
     fs: # 本地文件上传配置
@@ -75,6 +75,6 @@ framework: # 自定义配置
   beans: # Bean装配配置
     composite-wx-ma-service: true # 装配微信小程序配置
   tencent: # 腾讯云服务配置
-    app-id: 1257263570
-    secret-id: AKID2oLFrNQhSxDuObLKCn6fz2pNg8MJBt63
-    secret-key: FOUWK1ShiYs67yg8Mn042oMehU2QejeJ
+    app-id: xxxxxxxxxxxxxxxxxxxx
+    secret-id: xxxxxxxxxxxxxxxxxxxx
+    secret-key: xxxxxxxxxxxxxxxxxxxxxxxx

@@ -10,6 +10,7 @@ import com.markyang.framework.pojo.dto.system.UserProfileDto;
 import com.markyang.framework.pojo.entity.system.User;
 import com.markyang.framework.pojo.web.PageVo;
 import com.markyang.framework.service.core.service.SearchableService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
