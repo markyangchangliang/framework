@@ -8,7 +8,7 @@
 
 # 软件架构
 软件架构说明
-*项目采用spring cloud搭建， 
+**项目采用spring cloud搭建， 
 *Eureka做服务注册中心，
 *zuul 做网关和限流，
 *Hystrix做熔断处理，
