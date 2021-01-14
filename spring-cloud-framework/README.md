@@ -8,7 +8,7 @@
 
 
 ### 软件架构
-![image](https://github.com/xxx/xxx/blob/master/xxx/xxx.png)
+![image](https://github.com/markyangchangliang/framework/blob/main/spring-cloud-framework/pojo/src/main/java/com/markyang/framework/pojo/img/20200404230333236.png)
 软件架构说明
 #####项目采用spring cloud搭建， 
 #####Eureka做服务注册中心，
