@@ -4,6 +4,7 @@ import com.markyang.framework.client.system.fallback.RoleClientFallback;
 import com.markyang.framework.pojo.dto.system.RoleDto;
 import com.markyang.framework.pojo.web.ResultVo;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @author yangchangliang
  * @version 1
  */
+@Service
 @FeignClient(name = "system", fallback = RoleClientFallback.class)
 public interface RoleClient {
 

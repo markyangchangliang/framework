@@ -3,6 +3,7 @@ package com.markyang.framework.client.system;
 import com.markyang.framework.client.system.fallback.CommonInfoClientFallback;
 import com.markyang.framework.pojo.dto.system.OrgInfoDto;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * Client访问接口
  * @author yangchangliang
  */
+@Service
 @FeignClient(name = "system", fallback = CommonInfoClientFallback.class)
 public interface CommonInfoClient {
 

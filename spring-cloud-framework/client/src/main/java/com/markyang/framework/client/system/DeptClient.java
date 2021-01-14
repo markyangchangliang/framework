@@ -5,6 +5,7 @@ import com.markyang.framework.pojo.dto.system.DictDto;
 import com.markyang.framework.pojo.entity.system.Dept;
 import com.markyang.framework.pojo.web.ResultVo;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import java.util.List;
  * Client访问接口
  * @author yangchangliang
  */
+@Service
 @FeignClient(name = "system", fallback = DeptClientFallback.class)
 public interface DeptClient {
 

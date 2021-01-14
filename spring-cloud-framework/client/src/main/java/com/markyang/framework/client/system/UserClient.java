@@ -5,6 +5,7 @@ import com.markyang.framework.pojo.auth.AuthenticatedUser;
 import com.markyang.framework.pojo.dto.system.OrgUserDto;
 import com.markyang.framework.pojo.web.ResultVo;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * client接口调用
  * @author yangchangliang
  */
+@Service
 @FeignClient(name = "system", fallback = UserClientFallback.class)
 public interface UserClient {
 
