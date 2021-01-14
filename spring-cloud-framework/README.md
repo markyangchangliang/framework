@@ -8,7 +8,7 @@
 
 
 ### 软件架构
-https://img2018.cnblogs.com/blog/1526344/201907/1526344-20190709193621304-1960822836.png
+![image](https://github.com/xxx/xxx/blob/master/xxx/xxx.png)
 软件架构说明
 #####项目采用spring cloud搭建， 
 #####Eureka做服务注册中心，
