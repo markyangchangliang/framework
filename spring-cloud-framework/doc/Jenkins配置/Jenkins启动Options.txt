@@ -1,4 +1,0 @@
-JENKINS_JAVA_OPTIONS = "-Djava.awt.headless=true"
-JENKINS_JAVA_OPTIONS = "-Dhudson.util.ProcessTree.disable=true"
-端口改变可选
-JENKINS_PORT = "8080"
